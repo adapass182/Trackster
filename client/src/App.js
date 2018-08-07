@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './App.css'
 import Spotify from 'spotify-web-api-js'
+import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@material-ui/core'
 
 const spotifyWebApi = new Spotify()
 
@@ -11,9 +12,10 @@ class App extends Component {
     this.state = {
       loggedIn: params.access_token ? true : false,
       nowPlaying: {
-        name: "not checked",
+        name: "Click the button to see what's playing!",
+        artist: "",
         image: ""
-      }
+      },
     }
 
     if(params.access_token){
@@ -38,26 +40,61 @@ class App extends Component {
         this.setState({
           nowPlaying: {
             name: response.item.name,
+            artist: response.item.album.artists[0].name,
             image: response.item.album.images[0].url
           }
         })
       })
   }
 
+  isLoggedIn() {
+    if (this.state.loggedIn === true) {
+      return true
+    } else {
+      return false
+    }
+  }
+
   render() {
     return (
-      <div className="App">
-        <a href="http://localhost:8888">
-          <button>Login with Spotify</button>
-        </a>
-        <div> Now Playing: {this.state.nowPlaying.name} </div>
-        <div>
-          <img src={ this.state.nowPlaying.image } alt="Album art" style={{width: 100}}/>
-        </div>
-        <button onClick={() => this.getNowPlaying()}>
-          Check Now Playing
-        </button>
-      </div>
+      <Card className="App">
+        <CardContent>
+          <Typography>
+            Now Playing <br/>
+              Track: {this.state.nowPlaying.name} <br/>
+              Artist: {this.state.nowPlaying.artist}
+          </Typography>
+        </CardContent>
+        <CardMedia 
+          style={{
+            minHeight: "15rem"
+          }} 
+        >
+          <img src={ this.state.nowPlaying.image } alt="Album art" style={{width: 200}}/>
+        </CardMedia>
+        <CardActions
+          style={{
+            justifyContent: "center"
+        }}
+        >
+          <Button 
+            onClick={() => this.getNowPlaying()}
+            variant="raised"
+            color="primary"
+            type="submit"
+          >
+            Check Now Playing
+          </Button>
+            <Button
+              color="primary"
+              variant="raised"
+              disabled={this.isLoggedIn()}
+              href="http://localhost:8888"
+            >
+              Login with Spotify
+            </Button>
+        </CardActions>
+      </Card>
     );
   }
 }
