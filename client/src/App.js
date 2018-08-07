@@ -16,6 +16,7 @@ class App extends Component {
         artist: "",
         image: ""
       },
+      topArtists: []
     }
 
     if(params.access_token){
@@ -47,6 +48,15 @@ class App extends Component {
       })
   }
 
+  getTopArtists() {
+    spotifyWebApi.getMyTopArtists()
+      .then((response) => {
+        this.setState({
+          topArtists: response.items
+        })
+      })
+  }
+
   isLoggedIn() {
     if (this.state.loggedIn === true) {
       return true
@@ -72,6 +82,11 @@ class App extends Component {
         >
           <img src={ this.state.nowPlaying.image } alt="Album art" style={{width: 200}}/>
         </CardMedia>
+        <CardContent>
+          <Typography>
+            Hi Adam!
+          </Typography>
+        </CardContent>
         <CardActions
           style={{
             justifyContent: "center"
@@ -84,6 +99,14 @@ class App extends Component {
             type="submit"
           >
             Check Now Playing
+          </Button>
+          <Button 
+            onClick={() => this.getTopArtists()}
+            variant="raised"
+            color="primary"
+            type="submit"
+          >
+            Who's your favorite?
           </Button>
             <Button
               color="primary"
