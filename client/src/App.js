@@ -16,7 +16,7 @@ class App extends Component {
         artist: "",
         image: ""
       },
-      topArtists: []
+      topArtists: [{name: null}]
     }
 
     if(params.access_token){
@@ -55,6 +55,7 @@ class App extends Component {
           topArtists: response.items
         })
       })
+      console.log(`Hi Adam! ` + Object.values(this.state.topArtists))
   }
 
   isLoggedIn() {
@@ -84,7 +85,13 @@ class App extends Component {
         </CardMedia>
         <CardContent>
           <Typography>
-            Hi Adam!
+            Your top Artists: <br/>
+            {this.state.topArtists.map((artist, index) => {
+              return (
+              <Typography>
+                {index + 1}: {artist.name}
+              </Typography>
+            )})}
           </Typography>
         </CardContent>
         <CardActions
