@@ -12,7 +12,7 @@ class App extends Component {
     this.state = {
       loggedIn: params.access_token ? true : false,
       nowPlaying: {
-        name: "Click the button to see what's playing!",
+        name: "",
         artist: "",
         image: ""
       },
@@ -26,6 +26,7 @@ class App extends Component {
   }
 
   getHashParams() {
+    // ???
     var hashParams = {};
     var e, r = /([^&;=]+)=?([^&;]*)/g,
         q = window.location.hash.substring(1);
@@ -36,6 +37,7 @@ class App extends Component {
   }
 
   getNowPlaying() {
+    // Fetches current playing track for logged in user.
     spotifyWebApi.getMyCurrentPlaybackState()
       .then((response) => {
         this.setState({
@@ -49,82 +51,105 @@ class App extends Component {
   }
 
   getTopArtists() {
+    // Fetches top 20 artists over the last 6 months for the current user.
     spotifyWebApi.getMyTopArtists()
       .then((response) => {
         this.setState({
           topArtists: response.items
         })
       })
-      console.log(`Hi Adam! ` + Object.values(this.state.topArtists))
   }
 
   isLoggedIn() {
-    if (this.state.loggedIn === true) {
-      return true
+    // If this.state.loggedIn === false, will display login button. 
+    // Otherwise returns null, user cannot login when already logged in.
+    if (this.state.loggedIn === false) { 
+      return (
+        <Button
+          color="primary"
+          variant="raised"
+          href="http://localhost:8888"
+        >
+          Login with Spotify
+        </Button>
+      )
     } else {
-      return false
+      return null
+    }
+  }
+
+  logOut() {
+    if (this.state.loggedIn === true) {
+      return (
+        <Button 
+              variant="raised"
+              color="primary"
+              type="submit"
+              href="http://localhost:3000"
+            >
+              Logout
+            </Button>
+      )
+    } else {
+      return null
     }
   }
 
   render() {
     return (
-      <Card className="App">
-        <CardContent>
-          <Typography>
-            Now Playing <br/>
-              Track: {this.state.nowPlaying.name} <br/>
-              Artist: {this.state.nowPlaying.artist}
-          </Typography>
-        </CardContent>
-        <CardMedia 
-          style={{
-            minHeight: "15rem"
-          }} 
-        >
-          <img src={ this.state.nowPlaying.image } alt="Album art" style={{width: 200}}/>
-        </CardMedia>
-        <CardContent>
-          <Typography>
-            Your top Artists: <br/>
-            {this.state.topArtists.map((artist, index) => {
-              return (
-              <Typography>
-                {index + 1}: {artist.name}
-              </Typography>
-            )})}
-          </Typography>
-        </CardContent>
-        <CardActions
-          style={{
-            justifyContent: "center"
-        }}
-        >
-          <Button 
-            onClick={() => this.getNowPlaying()}
-            variant="raised"
-            color="primary"
-            type="submit"
+      <div>
+        {this.logOut()}
+        <Card className="App">
+          <CardContent>
+            <Typography>
+              Now Playing <br/>
+                Track: {this.state.nowPlaying.name} <br/>
+                Artist: {this.state.nowPlaying.artist}
+            </Typography>
+          </CardContent>
+          <CardMedia 
+            style={{
+              minHeight: "15rem"
+            }} 
           >
-            Check Now Playing
-          </Button>
-          <Button 
-            onClick={() => this.getTopArtists()}
-            variant="raised"
-            color="primary"
-            type="submit"
+            <img src={ this.state.nowPlaying.image } alt="Album art" style={{width: 200}}/>
+          </CardMedia>
+          <CardContent>
+            <Typography>
+              Your top Artists: <br/>
+              {this.state.topArtists.map((artist, index) => {
+                return (
+                <Typography>
+                  {index + 1}: {artist.name}
+                </Typography>
+              )})}
+            </Typography>
+          </CardContent>
+          <CardActions
+            style={{
+              justifyContent: "center"
+          }}
           >
-            Who's your favorite?
-          </Button>
-            <Button
-              color="primary"
+            <Button 
+              onClick={() => this.getNowPlaying()}
               variant="raised"
-              disabled={this.isLoggedIn()}
-              href="http://localhost:8888"
+              color="primary"
+              type="submit"
             >
-              Login with Spotify
+              Check Now Playing
             </Button>
-        </CardActions>
-      </Card>
+            <Button 
+              onClick={() => this.getTopArtists()}
+              variant="raised"
+              color="primary"
+              type="submit"
+            >
+              Who's your favorite?
+            </Button>
+            {this.isLoggedIn()}
+          </CardActions>
+        </Card>
+      </div>
     );
   }
 }
