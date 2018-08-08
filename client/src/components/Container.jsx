@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Spotify from 'spotify-web-api-js'
-import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@material-ui/core'
+import { Button, Card, CardActions, CardMedia } from '@material-ui/core'
 
 import TopArtists from './TopArtists'
 import NowPlaying from './NowPlaying'

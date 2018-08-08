@@ -15,10 +15,11 @@ const styles = theme => ({
     spacing: 0,
   },
   gridList: {
+    flexGrow: 1,
     width: "100%",
     height: "100%",
     margin: 0,
-    spacing: 0
+    spacing: 8
   },
   subheader: {
     width: '100%'
@@ -36,17 +37,17 @@ function TopArtists(props) {
   return (
     <div className={classes.root}>
       <Typography variant="headline">Your Top Artists</Typography>
-      <GridList cellHeight={180} className={classes.gridList} cols={4} >
-        {topArtists.map((artist) => (
-          <GridListTile key={artist.name} cols={1}>
-                <img src={artist.images[0].url || null} alt={artist.name} />
-                <GridListTileBar
-                    className={classes.titleWrap}
-                    title={artist.name}
-                />
-          </GridListTile>
-        ))}
-      </GridList>
+        <GridList className={classes.gridList} >
+          {topArtists.map((artist) => (
+            <GridListTile key={artist.name} cols={1}>
+                  <img src={artist.images[0].url || null} alt={artist.name} />
+                  <GridListTileBar
+                      className={classes.titleWrap}
+                      title={artist.name}
+                  />
+            </GridListTile>
+          ))}
+        </GridList>
     </div>
   );
 }

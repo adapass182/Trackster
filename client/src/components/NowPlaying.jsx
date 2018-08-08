@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { GridList, GridListTile, GridListTileBar, ListSubheader, Typography, withStyles } from '@material-ui/core';
+import { GridListTile, GridListTileBar, ListSubheader, Typography, withStyles } from '@material-ui/core';
 
 const styles = theme => ({
   root: {
