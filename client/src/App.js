@@ -25,6 +25,11 @@ class App extends Component {
 
   }
 
+  componentDidMount() {
+    this.getNowPlaying()
+    this.getTopArtists()
+  }
+
   getHashParams() {
     // ???
     var hashParams = {};
@@ -130,7 +135,7 @@ class App extends Component {
               justifyContent: "center"
           }}
           >
-            <Button 
+            {/* <Button 
               onClick={() => this.getNowPlaying()}
               variant="raised"
               color="primary"
@@ -145,7 +150,7 @@ class App extends Component {
               type="submit"
             >
               Who's your favorite?
-            </Button>
+            </Button> */}
             {this.isLoggedIn()}
           </CardActions>
         </Card>
