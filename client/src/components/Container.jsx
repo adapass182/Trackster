@@ -23,7 +23,7 @@ class Container extends Component {
           url: "test"
         }]
       }],
-      isPLaying: true
+      isPlaying: false
     }
 
     if(params.access_token){
@@ -57,7 +57,8 @@ class Container extends Component {
             name: response.item.name,
             artist: response.item.album.artists[0].name,
             image: response.item.album.images[0].url
-          }
+          },
+          isPlaying: true
         })
       })
       .catch((error) => {
@@ -97,14 +98,15 @@ class Container extends Component {
     }
   }
 
-  isPLaying() {
+  isPlaying() {
     if (this.state.isPlaying === true) {
       return (
         <Typography>
           Woohoo! A song is playing!
         </Typography>
       )
-    } else {
+    }
+    if (this.state.isPlaying === false) {
       return (
         <Typography>
           Ummmm... have you tried playing a song in Spotify?
