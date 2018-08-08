@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import Spotify from 'spotify-web-api-js'
 import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@material-ui/core'
 
+import TopArtists from './TopArtists'
+
 const spotifyWebApi = new Spotify()
 
 class Container extends Component {
@@ -15,7 +17,13 @@ class Container extends Component {
         artist: "",
         image: ""
       },
-      topArtists: [{name: null}]
+      topArtists: [{
+        name: null,
+        images: [{
+          url: "test"
+        }]
+      }],
+      isPLaying: true
     }
 
     if(params.access_token){
@@ -52,11 +60,18 @@ class Container extends Component {
           }
         })
       })
+      .catch((error) => {
+        console.log(error)
+        this.setState({
+          isPLaying: false
+        })
+      })
   }
 
   getTopArtists() {
     // Fetches top 20 artists over the last 6 months for the current user.
-    spotifyWebApi.getMyTopArtists()
+    // (NOTE: 20 is default, can retrieve custom amount by setting `{limit: #}` param in request)
+    spotifyWebApi.getMyTopArtists({limit: 8})
       .then((response) => {
         this.setState({
           topArtists: response.items
@@ -82,10 +97,26 @@ class Container extends Component {
     }
   }
 
+  isPLaying() {
+    if (this.state.isPlaying === true) {
+      return (
+        <Typography>
+          Woohoo! A song is playing!
+        </Typography>
+      )
+    } else {
+      return (
+        <Typography>
+          Ummmm... have you tried playing a song in Spotify?
+        </Typography>
+      )
+    }
+  }
+
   logOut() {
     if (this.state.loggedIn === true) {
       return (
-        <Button 
+            <Button
               variant="raised"
               color="primary"
               type="submit"
@@ -102,8 +133,11 @@ class Container extends Component {
   render() {
     return (
       <div>
-        {this.logOut()}
+        {this.isPlaying()}
         <Card className="App">
+          <CardActions style={{justifyContent: "right"}}>
+            {this.logOut()}
+          </CardActions>
           <CardContent>
             <Typography>
               Now Playing <br/>
@@ -118,38 +152,8 @@ class Container extends Component {
           >
             <img src={ this.state.nowPlaying.image } alt="Album art" style={{width: 200}}/>
           </CardMedia>
-          <CardContent>
-            <Typography>
-              Your top Artists: <br/>
-              {this.state.topArtists.map((artist, index) => {
-                return (
-                <Typography>
-                  {index + 1}: {artist.name}
-                </Typography>
-              )})}
-            </Typography>
-          </CardContent>
-          <CardActions
-            style={{
-              justifyContent: "center"
-          }}
-          >
-            {/* <Button 
-              onClick={() => this.getNowPlaying()}
-              variant="raised"
-              color="primary"
-              type="submit"
-            >
-              Check Now Playing
-            </Button>
-            <Button 
-              onClick={() => this.getTopArtists()}
-              variant="raised"
-              color="primary"
-              type="submit"
-            >
-              Who's your favorite?
-            </Button> */}
+          <TopArtists topArtists={this.state.topArtists} />
+          <CardActions style={{justifyContent: "center"}}>
             {this.isLoggedIn()}
           </CardActions>
         </Card>

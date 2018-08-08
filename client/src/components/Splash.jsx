@@ -1,17 +1,19 @@
 import React, { Component } from 'react'
 import { Button, Card, CardActions, CardContent, Typography } from '@material-ui/core'
 
+
 class Splash extends Component {
   
     render(){
+
         return(
-            <Card>
+            <Card style={{textAlign: "center"}}>
                 <CardContent>
-                    <Typography>
+                    <Typography variant="headline">
                         Welcome to Trakster!
                     </Typography>
                 </CardContent>
-                <CardActions>
+                <CardActions style={{justifyContent: "center"}}>
                     <Button
                         color="primary"
                         variant="raised"
@@ -25,4 +27,4 @@ class Splash extends Component {
     }
 }
 
-export default Splash;
+export default Splash
