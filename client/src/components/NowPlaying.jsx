@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { GridListTile, GridListTileBar, Typography, withStyles } from '@material-ui/core';
+import { GridList, GridListTile, GridListTileBar, ListSubheader, Typography, withStyles } from '@material-ui/core';
 
 const styles = theme => ({
   root: {
@@ -20,6 +20,7 @@ function NowPlaying(props) {
         if (isPlaying === true) {
           return (
             <GridListTile key={nowPlaying.name} className={classes.root} cols={1}>
+                <ListSubheader component="div" style={{fontSize: "2rem"}}>Now Playing</ListSubheader>
                 <img src={ nowPlaying.image } alt="Album art" style={{width: 500, height: 450}}/>
                 <GridListTileBar
                     title={nowPlaying.name}

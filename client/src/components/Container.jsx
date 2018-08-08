@@ -120,15 +120,15 @@ class Container extends Component {
     return (
       <div>
         <Card className="App">
-          <CardActions style={{justifyContent: "right"}}>
-            {this.logOut()}
-          </CardActions>
           <CardMedia>
             <NowPlaying nowPlaying={this.state.nowPlaying} isPlaying={this.state.isPlaying}/>
           </CardMedia>
           <TopArtists topArtists={this.state.topArtists} />
           <CardActions style={{justifyContent: "center"}}>
             {this.isLoggedIn()}
+          </CardActions>
+          <CardActions style={{justifyContent: "right"}}>
+            {this.logOut()}
           </CardActions>
         </Card>
       </div>
