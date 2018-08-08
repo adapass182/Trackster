@@ -3,6 +3,7 @@ import Spotify from 'spotify-web-api-js'
 import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@material-ui/core'
 
 import TopArtists from './TopArtists'
+import NowPlaying from './NowPlaying'
 
 const spotifyWebApi = new Spotify()
 
@@ -98,23 +99,6 @@ class Container extends Component {
     }
   }
 
-  isPlaying() {
-    if (this.state.isPlaying === true) {
-      return (
-        <Typography>
-          Woohoo! A song is playing!
-        </Typography>
-      )
-    }
-    if (this.state.isPlaying === false) {
-      return (
-        <Typography>
-          Ummmm... have you tried playing a song in Spotify?
-        </Typography>
-      )
-    }
-  }
-
   logOut() {
     if (this.state.loggedIn === true) {
       return (
@@ -135,24 +119,12 @@ class Container extends Component {
   render() {
     return (
       <div>
-        {this.isPlaying()}
         <Card className="App">
           <CardActions style={{justifyContent: "right"}}>
             {this.logOut()}
           </CardActions>
-          <CardContent>
-            <Typography>
-              Now Playing <br/>
-                Track: {this.state.nowPlaying.name} <br/>
-                Artist: {this.state.nowPlaying.artist}
-            </Typography>
-          </CardContent>
-          <CardMedia 
-            style={{
-              minHeight: "15rem"
-            }} 
-          >
-            <img src={ this.state.nowPlaying.image } alt="Album art" style={{width: 200}}/>
+          <CardMedia>
+            <NowPlaying nowPlaying={this.state.nowPlaying} isPlaying={this.state.isPlaying}/>
           </CardMedia>
           <TopArtists topArtists={this.state.topArtists} />
           <CardActions style={{justifyContent: "center"}}>

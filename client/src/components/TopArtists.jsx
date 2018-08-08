@@ -23,10 +23,6 @@ const styles = theme => ({
   subheader: {
     width: '100%'
   },
-  media: {
-      height: 0,
-      paddingTop: '56.25%', // 16:9
-  },
   titleWrap: {
       overflow: "visible"
   }
