@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 
 import './App.css'
 
-import Container from './components/Container'
+import Homepage from './components/Homepage'
 import Splash from './components/Splash'
 
 class App extends Component {
@@ -13,7 +13,7 @@ class App extends Component {
           <div>
             <Route exact path="/" render={() => <Redirect to="/splash" />} />
             <Route exact path="/splash" component={Splash} /> 
-            <Route exact path="/container" component={Container} />
+            <Route exact path="/homepage" component={Homepage} />
           </div>
         </Router>
     )
