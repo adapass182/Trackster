@@ -1,10 +1,12 @@
 import { GET_NOW_PLAYING } from "../actions/spotify_a"
 
 let x = {
-	albumName: "",
-	artistName: "",
-	trackName: "",
-	image: ""
+	albumName: null,
+	artistName: null,
+	trackName: null,
+	image: {
+		url: null
+	}
 }
 
 export default (state = x, { type, payload }) => {

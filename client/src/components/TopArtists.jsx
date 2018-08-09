@@ -3,9 +3,11 @@ import { connect } from "react-redux"
 import PropTypes from "prop-types"
 
 import { getTopArtists } from "../actions/spotify_a"
+import { addTrack, remTrack } from "../actions/selectTrack_a"
 
-import { GridList, GridListTile, GridListTileBar, IconButton, withStyles, Typography } from "@material-ui/core"
-import StarBorderIcon from "@material-ui/icons/StarBorder"
+import Star from "@material-ui/icons/Star"
+import StarBorder from "@material-ui/icons/StarBorder"
+import { Checkbox, GridList, GridListTile, GridListTileBar, withStyles, Typography } from "@material-ui/core"
 
 const styles = theme => ({
 	root: {
@@ -17,7 +19,7 @@ const styles = theme => ({
 		height: "100%",
 		paddingTop: "20px",
 		paddingBottom: "20px",
-		spacing: 0,
+		spacing: 0
 	},
 	gridList: {
 		flexGrow: 1,
@@ -44,6 +46,17 @@ class TopArtists extends PureComponent {
 		this.props.getTopArtists()
 	}
 
+	handleChange = (event) => {
+		console.log(event.target.value)
+		console.log("Hi Adam, checked check: " + event.target.checked)
+		if (event.target.checked === true) {
+			this.props.addTrack(event.target.value)
+		}
+		if (event.target.checked === false) {
+			this.props.remTrack(event.target.value)
+		}
+	}
+
 	render() {
 
 		const { classes, topArtists } = this.props
@@ -51,23 +64,29 @@ class TopArtists extends PureComponent {
 		return (
 			<div className={classes.root}>
 				<Typography variant="headline">Your Top Artists</Typography>
-				<GridList className={classes.gridList} >
-					{topArtists.map((artist) => (
-						<GridListTile key={artist.name} cols={1}>
-							<img src={artist.images[0].url || null} alt={artist.name} />
-							<GridListTileBar
-								className={classes.titleWrap}
-								title={artist.name}
-								actionIcon={
-									<IconButton className={classes.icon}>
-										<StarBorderIcon />
-									</IconButton>
-								}
-								actionPosition="left"
-							/>
-						</GridListTile>
-					))}
-				</GridList>
+				<form>
+					<GridList className={classes.gridList} >
+						{topArtists.map((artist) => (
+							<GridListTile key={artist.name} cols={1}>
+								<img src={artist.images[0].url || null} alt={artist.name} />
+								<GridListTileBar
+									className={classes.titleWrap}
+									title={artist.name}
+									actionIcon={
+										<Checkbox
+											className={classes.icon}
+											icon={<StarBorder />}
+											checkedIcon={<Star />}
+											value={artist.name}
+											onChange={this.handleChange}
+										/>
+									}
+									actionPosition="left"
+								/>
+							</GridListTile>
+						))}
+					</GridList>
+				</form>
 			</div>
 		)
 	}
@@ -86,4 +105,4 @@ const mapStateToProps = state => {
 	}
 }
 
-export default connect(mapStateToProps, {getTopArtists})(withStyles(styles)(TopArtists))
+export default connect(mapStateToProps, {addTrack, getTopArtists, remTrack})(withStyles(styles)(TopArtists))

@@ -4,7 +4,7 @@ import PropTypes from "prop-types"
 
 import { getNowPlaying } from "../actions/spotify_a"
 
-import { GridListTile, GridListTileBar, ListSubheader, withStyles } from "@material-ui/core"
+import { CircularProgress, GridListTile, GridListTileBar, ListSubheader, Typography, withStyles } from "@material-ui/core"
 
 const styles = theme => ({
 	root: {
@@ -20,13 +20,10 @@ class NowPlaying extends PureComponent {
 	componentDidMount() {
 		this.props.getNowPlaying()
 	}
-
-	render() {
-
-		const { classes, nowPlaying } = this.props
-
-		return (
-			<div className={classes.root}>
+  
+	isPlaying(nowPlaying, classes) {
+		if (this.props.nowPlaying.albumName !== null) {
+			return (
 				<GridListTile key={nowPlaying.trackName} className={classes.root} cols={1}>
 					<ListSubheader component="div" style={{fontSize: "2rem"}}>Now Playing</ListSubheader>
 					<img src={ nowPlaying.image.url } alt="Album art" style={{width: 500, height: 450}}/>
@@ -35,6 +32,24 @@ class NowPlaying extends PureComponent {
 						subtitle={nowPlaying.artistName}
 					/>
 				</GridListTile>
+			)
+		} else {
+			return (
+				<div>
+					<CircularProgress className={classes.progress} size={50} />
+					<Typography>Loading...</Typography>
+				</div>
+			)
+		}
+	}
+
+	render() {
+
+		const { classes, nowPlaying } = this.props
+
+		return (
+			<div className={classes.root}>
+				{this.isPlaying(nowPlaying, classes)}
 			</div>
 		)
     
