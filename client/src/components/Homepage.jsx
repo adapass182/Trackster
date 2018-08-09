@@ -1,9 +1,19 @@
 import React, { Component } from "react"
-import Spotify from "spotify-web-api-js"
-import { Button, Card, CardActions, CardMedia } from "@material-ui/core"
+import PropTypes from "prop-types"
 
-import TopArtists from "./TopArtists"
+import Spotify from "spotify-web-api-js"
+
+import { Button, Card, CardActions, CardMedia, withStyles } from "@material-ui/core"
+
 import NowPlaying from "./NowPlaying"
+// import TopArtists from "./TopArtists"
+import TopTracks from "./TopTracks"
+
+const styles = () => ({
+	root: {
+		backgroundColor: "white"
+	}
+})
 
 const spotifyWebApi = new Spotify()
 
@@ -29,6 +39,7 @@ class Homepage extends Component {
 		var hashParams = {}
 		var e, r = /([^&;=]+)=?([^&;]*)/g,
 			q = window.location.hash.substring(1)
+		// eslint-disable-next-line
 		while ( e = r.exec(q)) {
 			hashParams[e[1]] = decodeURIComponent(e[2])
 		}
@@ -36,8 +47,11 @@ class Homepage extends Component {
 	}
 
 	render() {
+
+		const { classes } = this.props
+
 		return (
-			<div>
+			<div className={classes.root}>
 				<Card className="App">
 					<CardActions style={{justifyContent: "right"}}>
 						<Button variant="raised" color="primary" type="submit" href="http://localhost:3000">
@@ -47,11 +61,15 @@ class Homepage extends Component {
 					<CardMedia>
 						<NowPlaying />
 					</CardMedia>
-					<TopArtists />
+					<TopTracks />
 				</Card>
 			</div>
 		)
 	}
 }
 
-export default Homepage
+Homepage.propTypes = {
+	classes: PropTypes.object.isRequired
+}
+
+export default (withStyles(styles)(Homepage))

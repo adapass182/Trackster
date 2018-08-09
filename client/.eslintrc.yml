@@ -8,6 +8,7 @@ parserOptions:
     jsx: true
   ecmaVersion: 6
   sourceType: "module"
+parser: babel-eslint
 plugins:
   - react
 rules:
@@ -27,5 +28,3 @@ rules:
     - 2
   no-console:
     - off
-  parser: 
-    - babel-eslint

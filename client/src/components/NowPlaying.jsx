@@ -6,7 +6,7 @@ import { getNowPlaying } from "../actions/spotify_a"
 
 import { CircularProgress, GridListTile, GridListTileBar, ListSubheader, Typography, withStyles } from "@material-ui/core"
 
-const styles = theme => ({
+const styles = () => ({
 	root: {
 		display: "flex",
 		flexWrap: "wrap",
