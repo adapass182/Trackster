@@ -2,12 +2,12 @@ import React, { PureComponent } from "react"
 import { connect } from "react-redux"
 import PropTypes from "prop-types"
 
-import { getTopTracks } from "../actions/spotify_a"
+import { getTrackRecommendations, getTopTracks } from "../actions/spotify_a"
 import { addTrack, remTrack } from "../actions/selector_a"
 
 import Star from "@material-ui/icons/Star"
 import StarBorder from "@material-ui/icons/StarBorder"
-import { Checkbox, GridList, GridListTile, GridListTileBar, withStyles, Typography } from "@material-ui/core"
+import { Button, Checkbox, GridList, GridListTile, GridListTileBar, withStyles, Typography } from "@material-ui/core"
 
 const styles = () => ({
 	root: {
@@ -50,6 +50,10 @@ class TopTracks extends PureComponent {
 		}
 	}
 
+	getNew = () => {
+		this.props.getTrackRecommendations(this.props.selectedTracks)
+	}
+
 	render() {
 
 		const { classes, topTracks } = this.props
@@ -80,6 +84,9 @@ class TopTracks extends PureComponent {
 							</GridListTile>
 						))}
 					</GridList>
+					<Button variant="raised" color="primary" type="submit" onClick={this.getNew}>
+						Get recommendations
+					</Button>
 				</form>
 			</div>
 		)
@@ -90,15 +97,18 @@ class TopTracks extends PureComponent {
 TopTracks.propTypes = {
 	addTrack: PropTypes.func.isRequired,
 	classes: PropTypes.object.isRequired,
+	getTrackRecommendations: PropTypes.func.isRequired,
 	getTopTracks: PropTypes.func.isRequired,
 	remTrack: PropTypes.func.isRequired,
+	selectedTracks: PropTypes.array.isRequired,
 	topTracks: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => {
 	return {
+		selectedTracks: state.selectedTracks,
 		topTracks: state.topTracks
 	}
 }
 
-export default connect(mapStateToProps, {addTrack, getTopTracks, remTrack})(withStyles(styles)(TopTracks))
+export default connect(mapStateToProps, {addTrack, getTrackRecommendations, getTopTracks, remTrack})(withStyles(styles)(TopTracks))

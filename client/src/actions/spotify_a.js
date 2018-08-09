@@ -55,9 +55,23 @@ export const getTopTracks = () => dispatch => {
 }
 
 
-export const getRecommendations = (seed) => dispatch => {
+export const getTrackRecommendations = (seeds) => dispatch => {
     
-	spotifyWebApi.getRecommendations({seed_tracks: seed})
+	spotifyWebApi.getRecommendations({seed_tracks: seeds})
+		.then(response => {
+			dispatch({
+				type: GET_RECOMMENDATIONS,
+				payload: response
+			})
+		})
+		.catch((error) => {
+			console.error(error)
+		})
+}
+
+export const getArtistRecommendations = (seeds) => dispatch => {
+    
+	spotifyWebApi.getRecommendations({seed_artists: seeds})
 		.then(response => {
 			dispatch({
 				type: GET_RECOMMENDATIONS,

@@ -6,7 +6,7 @@ import Spotify from "spotify-web-api-js"
 import { Button, Card, CardActions, CardMedia, withStyles } from "@material-ui/core"
 
 import NowPlaying from "./NowPlaying"
-// import TopArtists from "./TopArtists"
+import TopArtists from "./TopArtists"
 import TopTracks from "./TopTracks"
 
 const styles = () => ({
@@ -46,6 +46,14 @@ class Homepage extends Component {
 		return hashParams
 	}
 
+	// switchView() {
+	// 	if (something is true) {
+	// 		return <TopTracks />
+	// 	} else {
+	// 		return <TopArtists />
+	// 	}
+	// }
+
 	render() {
 
 		const { classes } = this.props
@@ -61,7 +69,7 @@ class Homepage extends Component {
 					<CardMedia>
 						<NowPlaying />
 					</CardMedia>
-					<TopTracks />
+					<TopArtists />
 				</Card>
 			</div>
 		)

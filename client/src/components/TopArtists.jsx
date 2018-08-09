@@ -2,12 +2,12 @@ import React, { PureComponent } from "react"
 import { connect } from "react-redux"
 import PropTypes from "prop-types"
 
-import { getTopArtists } from "../actions/spotify_a"
+import { getArtistRecommendations, getTopArtists } from "../actions/spotify_a"
 import { addArtist, remArtist } from "../actions/selector_a"
 
 import Star from "@material-ui/icons/Star"
 import StarBorder from "@material-ui/icons/StarBorder"
-import { Checkbox, GridList, GridListTile, GridListTileBar, withStyles, Typography } from "@material-ui/core"
+import { Button, Checkbox, GridList, GridListTile, GridListTileBar, withStyles, Typography } from "@material-ui/core"
 
 const styles = () => ({
 	root: {
@@ -50,6 +50,10 @@ class TopArtists extends PureComponent {
 		}
 	}
 
+	getNew = () => {
+		this.props.getArtistRecommendations(this.props.selectedArtists)
+	}
+
 	render() {
 
 		const { classes, topArtists } = this.props
@@ -61,7 +65,7 @@ class TopArtists extends PureComponent {
 					<GridList className={classes.gridList} >
 						{topArtists.map((artist) => (
 							<GridListTile key={artist.name} cols={1}>
-								<img src={artist.images[0].url || null} alt={artist.name} />
+								<img src={artist.images[0].url || "test"} alt={artist.name} />
 								<GridListTileBar
 									className={classes.titleWrap}
 									title={artist.name}
@@ -70,7 +74,7 @@ class TopArtists extends PureComponent {
 											className={classes.icon}
 											icon={<StarBorder />}
 											checkedIcon={<Star />}
-											value={artist.name}
+											value={artist.id}
 											onChange={this.handleChange}
 										/>
 									}
@@ -79,6 +83,9 @@ class TopArtists extends PureComponent {
 							</GridListTile>
 						))}
 					</GridList>
+					<Button variant="raised" color="primary" type="submit" onClick={this.getNew}>
+						Get recommendations
+					</Button>
 				</form>
 			</div>
 		)
@@ -89,15 +96,18 @@ class TopArtists extends PureComponent {
 TopArtists.propTypes = {
 	addArtist: PropTypes.func.isRequired,
 	classes: PropTypes.object.isRequired,
+	getArtistRecommendations: PropTypes.func.isRequired,
 	getTopArtists: PropTypes.func.isRequired,
 	remArtist: PropTypes.func.isRequired,
+	selectedArtists: PropTypes.array.isRequired,
 	topArtists: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => {
 	return {
+		selectedArtists: state.selectedArtists,
 		topArtists: state.topArtists
 	}
 }
 
-export default connect(mapStateToProps, {addArtist, getTopArtists, remArtist})(withStyles(styles)(TopArtists))
+export default connect(mapStateToProps, {addArtist, getArtistRecommendations, getTopArtists, remArtist})(withStyles(styles)(TopArtists))

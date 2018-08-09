@@ -2,9 +2,9 @@ import { GET_TOP_ARTISTS } from "../actions/spotify_a"
 
 let y = [{
 	name: null,
-	images: [{
-		url: ""
-	}]
+	images: [
+		{url: "test"}
+	]
 }]
 
 export default (state = y, { type, payload }) => {
