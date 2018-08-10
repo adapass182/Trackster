@@ -51,8 +51,8 @@ class NowPlaying extends PureComponent {
 			return (
 				<div>
 					<Typography>
-						I can't hear anything! Make sure you're playing a song on your
-						Spotify account, then click below and I'll have another listen...
+						{`I can't hear anything! Make sure you're playing a song on your
+						Spotify account, then click below and I'll have another listen...`}
 					</Typography>
 					<Button
 						variant="raised"
