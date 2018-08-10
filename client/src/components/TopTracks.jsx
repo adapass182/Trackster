@@ -2,8 +2,8 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import { getArtistRecommendations, getTopArtists } from '../actions/spotify_a'
-import { addArtist, remArtist } from '../actions/selector_a'
+import { getTrackRecommendations, getTopTracks } from '../actions/spotify_a'
+import { addTrack, remTrack } from '../actions/selector_a'
 
 import Star from '@material-ui/icons/Star'
 import StarBorder from '@material-ui/icons/StarBorder'
@@ -42,44 +42,45 @@ const styles = () => ({
 	}
 })
 
-class TopArtists extends PureComponent {
+class TopTracks extends PureComponent {
 	componentDidMount() {
-		this.props.getTopArtists()
+		this.props.getTopTracks()
 	}
 
 	handleChange = event => {
 		if (event.target.checked === true) {
-			this.props.addArtist(event.target.value)
+			this.props.addTrack(event.target.value)
 		}
 		if (event.target.checked === false) {
-			this.props.remArtist(event.target.value)
+			this.props.remTrack(event.target.value)
 		}
 	}
 
 	getNew = () => {
-		this.props.getArtistRecommendations(this.props.selectedArtists)
+		this.props.getTrackRecommendations(this.props.selectedTracks)
 	}
 
 	render() {
-		const { classes, topArtists } = this.props
+		const { classes, topTracks } = this.props
 
 		return (
 			<div className={classes.root}>
-				<Typography variant="headline">Your Top Artists</Typography>
+				<Typography variant="headline">Your Top Tracks</Typography>
 				<form>
 					<GridList className={classes.gridList}>
-						{topArtists.map(artist => (
-							<GridListTile key={artist.name} cols={1}>
-								<img src={artist.images[0].url || 'test'} alt={artist.name} />
+						{topTracks.map(track => (
+							<GridListTile key={track.name} cols={1}>
+								<img src={track.album.images[0].url || null} alt={track.name} />
 								<GridListTileBar
 									className={classes.titleWrap}
-									title={artist.name}
+									title={track.name}
+									subtitle={track.artists[0].name}
 									actionIcon={
 										<Checkbox
 											className={classes.icon}
 											icon={<StarBorder />}
 											checkedIcon={<Star />}
-											value={artist.id}
+											value={track.id}
 											onChange={this.handleChange}
 										/>
 									}
@@ -102,24 +103,24 @@ class TopArtists extends PureComponent {
 	}
 }
 
-TopArtists.propTypes = {
-	addArtist: PropTypes.func.isRequired,
+TopTracks.propTypes = {
+	addTrack: PropTypes.func.isRequired,
 	classes: PropTypes.object.isRequired,
-	getArtistRecommendations: PropTypes.func.isRequired,
-	getTopArtists: PropTypes.func.isRequired,
-	remArtist: PropTypes.func.isRequired,
-	selectedArtists: PropTypes.array.isRequired,
-	topArtists: PropTypes.object.isRequired
+	getTrackRecommendations: PropTypes.func.isRequired,
+	getTopTracks: PropTypes.func.isRequired,
+	remTrack: PropTypes.func.isRequired,
+	selectedTracks: PropTypes.array.isRequired,
+	topTracks: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => {
 	return {
-		selectedArtists: state.selectedArtists,
-		topArtists: state.topArtists
+		selectedTracks: state.selectedTracks,
+		topTracks: state.topTracks
 	}
 }
 
 export default connect(
 	mapStateToProps,
-	{ addArtist, getArtistRecommendations, getTopArtists, remArtist }
-)(withStyles(styles)(TopArtists))
+	{ addTrack, getTrackRecommendations, getTopTracks, remTrack }
+)(withStyles(styles)(TopTracks))

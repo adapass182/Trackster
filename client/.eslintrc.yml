@@ -1,10 +1,14 @@
 env:
   browser: true
-extends: 'eslint:recommended'
+extends: 
+  - 'eslint:recommended'
+  - 'plugin:react/recommended'
 parserOptions:
   ecmaFeatures:
     jsx: true
-  ecmaVersion: 2018
+  ecmaVersion: 6
+  sourceType: "module"
+parser: babel-eslint
 plugins:
   - react
 rules:
@@ -16,7 +20,11 @@ rules:
     - unix
   quotes:
     - error
-    - double
+    - single
   semi:
     - error
     - never
+  react/jsx-uses-vars: 
+    - 2
+  no-console:
+    - off
