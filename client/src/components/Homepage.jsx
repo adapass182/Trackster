@@ -12,6 +12,7 @@ import {
 } from '@material-ui/core'
 
 import NowPlaying from './NowPlaying'
+import Recommendations from './Recommendations'
 import TopArtists from './TopArtists'
 import TopTracks from './TopTracks'
 
@@ -126,6 +127,7 @@ class Homepage extends Component {
 					{this.switchButton()}
 					{this.switchView()}
 				</Card>
+				<Recommendations />
 			</div>
 		)
 	}
