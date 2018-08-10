@@ -1,16 +1,18 @@
-import { GET_TOP_TRACKS } from "../actions/spotify_a"
+import { GET_TOP_TRACKS } from '../actions/spotify_a'
 
-let y = [{
-	name: null,
-	album: {
-		images: [{
-			url: ""
-		}]
-	},
-	artists: [
-		{name: ""}
-	]
-}]
+let y = [
+	{
+		name: null,
+		album: {
+			images: [
+				{
+					url: ''
+				}
+			]
+		},
+		artists: [{ name: '' }]
+	}
+]
 
 export default (state = y, { type, payload }) => {
 	switch (type) {

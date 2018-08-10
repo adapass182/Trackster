@@ -1,4 +1,4 @@
-import { GET_RECOMMENDATIONS } from "../actions/spotify_a"
+import { GET_RECOMMENDATIONS } from '../actions/spotify_a'
 
 export default (state = {}, { type, payload }) => {
 	switch (type) {

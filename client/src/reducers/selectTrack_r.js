@@ -1,8 +1,8 @@
-import { ADD_TRACK, REM_TRACK } from "../actions/selector_a"
+import { ADD_TRACK, REM_TRACK } from '../actions/selector_a'
 
 export default (state = [], { type, payload }) => {
-	console.log("Hi Adam: " + payload)
-	switch(type) {
+	console.log('Hi Adam: ' + payload)
+	switch (type) {
 	case ADD_TRACK:
 		state.push(payload)
 		return state

@@ -1,24 +1,32 @@
-import React, { PureComponent } from "react"
-import { connect } from "react-redux"
-import PropTypes from "prop-types"
+import React, { PureComponent } from 'react'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
-import { getTrackRecommendations, getTopTracks } from "../actions/spotify_a"
-import { addTrack, remTrack } from "../actions/selector_a"
+import { getTrackRecommendations, getTopTracks } from '../actions/spotify_a'
+import { addTrack, remTrack } from '../actions/selector_a'
 
-import Star from "@material-ui/icons/Star"
-import StarBorder from "@material-ui/icons/StarBorder"
-import { Button, Checkbox, GridList, GridListTile, GridListTileBar, withStyles, Typography } from "@material-ui/core"
+import Star from '@material-ui/icons/Star'
+import StarBorder from '@material-ui/icons/StarBorder'
+import {
+	Button,
+	Checkbox,
+	GridList,
+	GridListTile,
+	GridListTileBar,
+	withStyles,
+	Typography
+} from '@material-ui/core'
 
 const styles = () => ({
 	root: {
-		display: "flex",
-		flexWrap: "wrap",
-		justifyContent: "space-around",
-		overflow: "hidden",
-		width: "100%",
-		height: "100%",
-		paddingTop: "20px",
-		paddingBottom: "20px",
+		display: 'flex',
+		flexWrap: 'wrap',
+		justifyContent: 'space-around',
+		overflow: 'hidden',
+		width: '100%',
+		height: '100%',
+		paddingTop: '20px',
+		paddingBottom: '20px',
 		spacing: 0
 	},
 	gridList: {
@@ -27,21 +35,19 @@ const styles = () => ({
 		spacing: 8
 	},
 	titleWrap: {
-		overflow: "visible"
+		overflow: 'visible'
 	},
 	icon: {
-		color: "white"
+		color: 'white'
 	}
 })
 
-
 class TopTracks extends PureComponent {
-
 	componentDidMount() {
 		this.props.getTopTracks()
 	}
 
-	handleChange = (event) => {
+	handleChange = event => {
 		if (event.target.checked === true) {
 			this.props.addTrack(event.target.value)
 		}
@@ -55,15 +61,14 @@ class TopTracks extends PureComponent {
 	}
 
 	render() {
-
 		const { classes, topTracks } = this.props
 
 		return (
 			<div className={classes.root}>
 				<Typography variant="headline">Your Top Tracks</Typography>
 				<form>
-					<GridList className={classes.gridList} >
-						{topTracks.map((track) => (
+					<GridList className={classes.gridList}>
+						{topTracks.map(track => (
 							<GridListTile key={track.name} cols={1}>
 								<img src={track.album.images[0].url || null} alt={track.name} />
 								<GridListTileBar
@@ -84,14 +89,18 @@ class TopTracks extends PureComponent {
 							</GridListTile>
 						))}
 					</GridList>
-					<Button variant="raised" color="primary" type="submit" onClick={this.getNew}>
+					<Button
+						variant="raised"
+						color="primary"
+						type="submit"
+						onClick={this.getNew}
+					>
 						Get recommendations
 					</Button>
 				</form>
 			</div>
 		)
 	}
-	
 }
 
 TopTracks.propTypes = {
@@ -111,4 +120,7 @@ const mapStateToProps = state => {
 	}
 }
 
-export default connect(mapStateToProps, {addTrack, getTrackRecommendations, getTopTracks, remTrack})(withStyles(styles)(TopTracks))
+export default connect(
+	mapStateToProps,
+	{ addTrack, getTrackRecommendations, getTopTracks, remTrack }
+)(withStyles(styles)(TopTracks))

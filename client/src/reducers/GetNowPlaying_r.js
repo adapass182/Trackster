@@ -1,4 +1,4 @@
-import { GET_NOW_PLAYING } from "../actions/spotify_a"
+import { GET_NOW_PLAYING } from '../actions/spotify_a'
 
 let x = {
 	albumName: null,
