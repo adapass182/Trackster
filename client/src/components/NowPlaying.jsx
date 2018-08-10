@@ -25,7 +25,7 @@ const styles = () => ({
 class NowPlaying extends PureComponent {
 	isPlaying(nowPlaying, classes) {
 		this.props.getNowPlaying()
-		if (this.props.nowPlaying.albumName !== null) {
+		if (this.props.nowPlaying !== null) {
 			return (
 				<GridListTile
 					key={nowPlaying.trackName}

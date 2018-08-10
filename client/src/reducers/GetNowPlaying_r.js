@@ -1,15 +1,6 @@
 import { GET_NOW_PLAYING } from '../actions/spotify_a'
 
-let x = {
-	albumName: null,
-	artistName: null,
-	trackName: null,
-	image: {
-		url: null
-	}
-}
-
-export default (state = x, { type, payload }) => {
+export default (state = null, { type, payload }) => {
 	switch (type) {
 	case GET_NOW_PLAYING:
 		state = {

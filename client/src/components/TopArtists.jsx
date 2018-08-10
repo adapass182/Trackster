@@ -53,7 +53,6 @@ class TopArtists extends PureComponent {
 		if (event.target.checked && this.counter < 5) {
 			this.props.addArtist(event.target.value)
 			++this.counter
-			console.log('Counter low :' + this.counter)
 			return (event.target.checked = true)
 		}
 		if (event.target.checked && this.counter === 5) {

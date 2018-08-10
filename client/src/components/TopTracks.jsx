@@ -53,18 +53,15 @@ class TopTracks extends PureComponent {
 		if (event.target.checked && this.counter < 5) {
 			this.props.addTrack(event.target.value)
 			++this.counter
-			console.log('Counter low :' + this.counter)
 			return (event.target.checked = true)
 		}
 		if (event.target.checked && this.counter === 5) {
 			window.alert('Woah there! Spotify can only handle 5 at a time, go easy!')
-			console.log('Counter high :' + this.counter)
 			return (event.target.checked = false)
 		}
 		if (!event.target.checked) {
 			this.props.remTrack(event.target.value)
 			--this.counter
-			console.log('Counter rem :' + this.counter)
 			return (event.target.checked = false)
 		}
 	}
