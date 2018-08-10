@@ -11,17 +11,6 @@ import {
 } from '@material-ui/core'
 
 const styles = () => ({
-	root: {
-		display: 'flex',
-		flexWrap: 'wrap',
-		justifyContent: 'space-around',
-		overflow: 'hidden',
-		width: '100%',
-		height: '100%',
-		paddingTop: '20px',
-		paddingBottom: '20px',
-		spacing: 0
-	},
 	gridList: {
 		flexWrap: 'nowrap'
 	},
@@ -35,7 +24,8 @@ class Recommendations extends PureComponent {
 		window.scrollTo(0, document.body.scrollHeight)
 	}
 
-	isReady(classes, recommendations) {
+	isReady() {
+		const { classes, recommendations } = this.props
 		if (recommendations === null) {
 			return null
 		} else {
@@ -60,9 +50,7 @@ class Recommendations extends PureComponent {
 	}
 
 	render() {
-		const { classes, recommendations } = this.props
-
-		return <div>{this.isReady(classes, recommendations)}</div>
+		return <div>{this.isReady()}</div>
 	}
 }
 

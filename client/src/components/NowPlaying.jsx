@@ -23,7 +23,6 @@ const styles = () => ({
 })
 
 class NowPlaying extends PureComponent {
-
 	isPlaying(nowPlaying, classes) {
 		this.props.getNowPlaying()
 		if (this.props.nowPlaying.albumName !== null) {
@@ -54,14 +53,6 @@ class NowPlaying extends PureComponent {
 						{`I can't hear anything! Make sure you're playing a song on your
 						Spotify account, then click below and I'll have another listen...`}
 					</Typography>
-					<Button
-						variant="raised"
-						color="primary"
-						type="submit"
-						onClick={() => this.isPlaying(nowPlaying, classes)}
-					>
-						Listen again
-					</Button>
 				</div>
 			)
 		}
@@ -71,7 +62,21 @@ class NowPlaying extends PureComponent {
 		const { classes, nowPlaying } = this.props
 
 		return (
-			<div className={classes.root}>{this.isPlaying(nowPlaying, classes)}</div>
+			<div>
+				<div className={classes.root}>
+					{this.isPlaying(nowPlaying, classes)}
+				</div>
+				<div>
+					<Button
+						variant="raised"
+						color="primary"
+						type="submit"
+						onClick={() => this.isPlaying(nowPlaying, classes)}
+					>
+						Listen again
+					</Button>
+				</div>
+			</div>
 		)
 	}
 }
