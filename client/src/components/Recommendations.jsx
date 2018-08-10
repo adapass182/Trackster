@@ -6,7 +6,8 @@ import {
 	GridList,
 	GridListTile,
 	GridListTileBar,
-	withStyles
+	withStyles,
+	Typography
 } from '@material-ui/core'
 
 const styles = () => ({
@@ -22,9 +23,7 @@ const styles = () => ({
 		spacing: 0
 	},
 	gridList: {
-		flexGrow: 1,
-		margin: 0,
-		spacing: 8
+		flexWrap: 'nowrap'
 	},
 	titleWrap: {
 		overflow: 'visible'
@@ -32,22 +31,29 @@ const styles = () => ({
 })
 
 class Recommendations extends PureComponent {
+	componentDidUpdate() {
+		window.scrollTo(0, document.body.scrollHeight)
+	}
+
 	render() {
 		const { classes, recommendations } = this.props
 
 		return (
-			<GridList className={classes.gridList}>
-				{recommendations.tracks.map(track => (
-					<GridListTile key={track.name} cols={1}>
-						<img src={track.album.images[0].url} alt={track.name} />
-						<GridListTileBar
-							className={classes.titleWrap}
-							title={track.name}
-							subtitle={track.artists[0].name}
-						/>
-					</GridListTile>
-				))}
-			</GridList>
+			<div>
+				<Typography>You might like these...</Typography>
+				<GridList className={classes.gridList}>
+					{recommendations.tracks.map(track => (
+						<GridListTile key={track.name} cols={2.5}>
+							<img src={track.album.images[0].url} alt={track.name} />
+							<GridListTileBar
+								className={classes.titleWrap}
+								title={track.name}
+								subtitle={track.artists[0].name}
+							/>
+						</GridListTile>
+					))}
+				</GridList>
+			</div>
 		)
 	}
 }

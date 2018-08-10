@@ -49,7 +49,7 @@ class Homepage extends Component {
 	}
 
 	componentDidMount() {
-		window.scrollTo(0, 0)
+		window.scrollTo(0, 24)
 	}
 
 	getHashParams() {
