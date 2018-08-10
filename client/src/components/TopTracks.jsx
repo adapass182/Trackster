@@ -110,7 +110,7 @@ TopTracks.propTypes = {
 	getTopTracks: PropTypes.func.isRequired,
 	remTrack: PropTypes.func.isRequired,
 	selectedTracks: PropTypes.array.isRequired,
-	topTracks: PropTypes.object.isRequired
+	topTracks: PropTypes.array.isRequired
 }
 
 const mapStateToProps = state => {
