@@ -68,7 +68,13 @@ class TopArtists extends PureComponent {
 	}
 
 	getNew = () => {
-		this.props.getArtistRecommendations(this.props.selectedArtists)
+		if (this.props.selectedArtists.length === 0) {
+			window.alert(
+				'Select up to 5 artists above by clicking the star icon to get recommendations'
+			)
+		} else {
+			this.props.getArtistRecommendations(this.props.selectedArtists)
+		}
 	}
 
 	render() {

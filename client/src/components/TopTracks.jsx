@@ -70,7 +70,13 @@ class TopTracks extends PureComponent {
 	}
 
 	getNew = () => {
-		this.props.getTrackRecommendations(this.props.selectedTracks)
+		if (this.props.selectedTracks.length === 0) {
+			window.alert(
+				'Select up to 5 tracks above by clicking the star icon to get recommendations'
+			)
+		} else {
+			this.props.getTrackRecommendations(this.props.selectedTracks)
+		}
 	}
 
 	render() {
