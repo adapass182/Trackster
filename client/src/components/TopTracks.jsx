@@ -47,12 +47,25 @@ class TopTracks extends PureComponent {
 		this.props.getTopTracks()
 	}
 
+	counter = 0
+
 	handleChange = event => {
-		if (event.target.checked === true) {
+		if (event.target.checked && this.counter < 5) {
 			this.props.addTrack(event.target.value)
+			++this.counter
+			console.log('Counter low :' + this.counter)
+			return (event.target.checked = true)
 		}
-		if (event.target.checked === false) {
+		if (event.target.checked && this.counter === 5) {
+			window.alert('Woah there! Spotify can only handle 5 at a time, go easy!')
+			console.log('Counter high :' + this.counter)
+			return (event.target.checked = false)
+		}
+		if (!event.target.checked) {
 			this.props.remTrack(event.target.value)
+			--this.counter
+			console.log('Counter rem :' + this.counter)
+			return (event.target.checked = false)
 		}
 	}
 
@@ -65,7 +78,14 @@ class TopTracks extends PureComponent {
 
 		return (
 			<div className={classes.root}>
-				<Typography variant="headline">Your Top Tracks</Typography>
+				<div>
+					<Typography variant="headline">Your Top Tracks</Typography>
+					<Typography>
+						Pick up to 5 of your top tracks and hit the button below for some
+						new tunes!
+					</Typography>
+				</div>
+				<br />
 				<form>
 					<GridList className={classes.gridList}>
 						{topTracks.map(track => (
@@ -77,11 +97,12 @@ class TopTracks extends PureComponent {
 									subtitle={track.artists[0].name}
 									actionIcon={
 										<Checkbox
+											type="checkbox"
 											className={classes.icon}
 											icon={<StarBorder />}
 											checkedIcon={<Star />}
 											value={track.id}
-											onChange={this.handleChange}
+											onClick={this.handleChange}
 										/>
 									}
 									actionPosition="left"
