@@ -23,7 +23,9 @@ const styles = () => ({
 })
 
 class NowPlaying extends PureComponent {
+
 	isPlaying(nowPlaying, classes) {
+		this.props.getNowPlaying()
 		if (this.props.nowPlaying.albumName !== null) {
 			return (
 				<GridListTile
