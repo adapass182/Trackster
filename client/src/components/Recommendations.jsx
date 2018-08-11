@@ -1,26 +1,24 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { Button, MobileStepper, withStyles } from '@material-ui/core'
+import {
+	Button,
+	GridListTile,
+	GridListTileBar,
+	MobileStepper,
+	withStyles
+} from '@material-ui/core'
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
 import SwipeableViews from 'react-swipeable-views'
 
-const styles = theme => ({
+const styles = () => ({
 	root: {
 		display: 'flex',
 		flexWrap: 'wrap',
 		justifyContent: 'space-around',
 		overflow: 'hidden',
 		marginBottom: '2rem'
-	},
-	header: {
-		display: 'flex',
-		alignItems: 'center',
-		height: 50,
-		paddingLeft: theme.spacing.unit * 4,
-		marginBottom: 20,
-		backgroundColor: theme.palette.background.default
 	},
 	img: {
 		display: 'flex',
@@ -31,7 +29,8 @@ const styles = theme => ({
 		overflow: 'hidden',
 		width: '100%',
 		margin: '3rem auto 0.2rem auto'
-	}
+	},
+	titleBar: {}
 })
 
 class Recommendations extends Component {
@@ -75,12 +74,17 @@ class Recommendations extends Component {
 						enableMouseEvents
 					>
 						{recommendations.tracks.map(track => (
-							<img
-								key={track.id}
-								className={classes.img}
-								src={track.album.images[1].url}
-								alt={track.name}
-							/>
+							<GridListTile key={track.id} className={classes.img} cols={1}>
+								<img
+									src={track.album.images[1].url}
+									alt={track.name}
+									className={classes.img}
+								/>
+								<GridListTileBar
+									title={track.name}
+									subtitle={track.artists[0].name}
+								/>
+							</GridListTile>
 						))}
 					</SwipeableViews>
 					<MobileStepper
