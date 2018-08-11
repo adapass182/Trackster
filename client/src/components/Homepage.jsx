@@ -126,8 +126,8 @@ class Homepage extends Component {
 					</CardMedia>
 					{this.switchButton()}
 					{this.switchView()}
+					<Recommendations />
 				</Card>
-				<Recommendations />
 			</div>
 		)
 	}
