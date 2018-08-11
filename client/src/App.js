@@ -4,8 +4,6 @@ import PropTypes from 'prop-types'
 
 import { withStyles } from '@material-ui/core'
 
-import './App.css'
-
 import Homepage from './components/Homepage'
 import Splash from './components/Splash'
 
