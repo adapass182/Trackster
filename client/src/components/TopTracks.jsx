@@ -10,32 +10,26 @@ import StarBorder from '@material-ui/icons/StarBorder'
 import {
 	Button,
 	Checkbox,
-	GridList,
+	Grid,
 	GridListTile,
 	GridListTileBar,
-	withStyles,
-	Typography
+	withStyles
 } from '@material-ui/core'
 
 const styles = () => ({
 	root: {
-		display: 'flex',
-		flexWrap: 'wrap',
+		flexGrow: 1,
+		padding: '1rem'
+	},
+	main: {
 		justifyContent: 'space-around',
-		overflow: 'hidden',
-		width: '90%',
-		height: '100%',
-		margin: 'auto',
-		paddingTop: '20px',
-		paddingBottom: '20px',
-		spacing: 8
+		alignItems: 'center'
 	},
-	gridList: {
-		width: 'auto',
-		height: 'auto'
-	},
-	gridTile: {
-		padding: '3rem'
+	item: {
+		listStyleType: 'none',
+		maxHeight: '320px',
+		maxWidth: '320px',
+		objectFit: 'contain'
 	},
 	gridBar: {
 		overflow: 'hidden'
@@ -84,19 +78,15 @@ class TopTracks extends PureComponent {
 
 		return (
 			<div className={classes.root}>
-				<div>
-					<Typography variant="headline">Your Top Tracks</Typography>
-					<Typography>
-						Pick up to 5 of your top tracks and hit the button below for some
-						new tunes!
-					</Typography>
-				</div>
-				<br />
-				<form>
-					<GridList className={classes.gridList}>
-						{topTracks.map(track => (
-							<GridListTile key={track.name} className={classes.gridTile}>
-								<img src={track.album.images[0].url || null} alt={track.name} />
+				<Grid container spacing={24} className={classes.main}>
+					{topTracks.map(track => (
+						<Grid item s={3} xs={6} key={track.name} className={classes.item}>
+							<GridListTile>
+								<img
+									src={track.album.images[0].url || null}
+									alt={track.name}
+									style={{ width: '300px', height: '300px' }}
+								/>
 								<GridListTileBar
 									className={classes.gridBar}
 									title={track.name}
@@ -114,17 +104,17 @@ class TopTracks extends PureComponent {
 									actionPosition="left"
 								/>
 							</GridListTile>
-						))}
-					</GridList>
-					<Button
-						variant="raised"
-						color="primary"
-						type="submit"
-						onClick={this.getNew}
-					>
-						Get recommendations
-					</Button>
-				</form>
+						</Grid>
+					))}
+				</Grid>
+				<Button
+					variant="raised"
+					color="primary"
+					type="submit"
+					onClick={this.getNew}
+				>
+					Get recommendations
+				</Button>
 			</div>
 		)
 	}

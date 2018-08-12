@@ -6,9 +6,9 @@ import { getNowPlaying } from '../actions/spotify_a'
 
 import {
 	Button,
+	Grid,
 	GridListTile,
 	GridListTileBar,
-	ListSubheader,
 	Typography,
 	withStyles
 } from '@material-ui/core'
@@ -18,33 +18,38 @@ const styles = () => ({
 		display: 'flex',
 		flexWrap: 'wrap',
 		justifyContent: 'space-around',
-		overflow: 'hidden'
+		listStyleType: 'none'
 	}
 })
 
 class NowPlaying extends PureComponent {
-	isPlaying(nowPlaying, classes) {
+	componentDidMount() {
 		this.props.getNowPlaying()
+	}
+
+	isPlaying(nowPlaying, classes) {
 		if (this.props.nowPlaying !== null) {
 			return (
-				<GridListTile
-					key={nowPlaying.trackName}
-					className={classes.root}
-					cols={1}
-				>
-					<ListSubheader component="div" style={{ fontSize: '2rem' }}>
-						Now Playing
-					</ListSubheader>
-					<img
-						src={nowPlaying.image.url}
-						alt="Album art"
-						style={{ width: 500, height: 450 }}
-					/>
-					<GridListTileBar
-						title={nowPlaying.trackName}
-						subtitle={nowPlaying.artistName}
-					/>
-				</GridListTile>
+				<Grid container spacing={24} className={classes.root}>
+					<Grid item key={nowPlaying.trackName}>
+						<GridListTile>
+							<img
+								src={nowPlaying.image.url}
+								alt="AlbumArt"
+								style={{
+									width: '100%',
+									maxHeight: '100%',
+									objectFit: 'cover',
+									margin: '2rem, auto'
+								}}
+							/>
+							<GridListTileBar
+								title={nowPlaying.trackName}
+								subtitle={nowPlaying.artistName}
+							/>
+						</GridListTile>
+					</Grid>
+				</Grid>
 			)
 		} else {
 			return (
@@ -71,7 +76,7 @@ class NowPlaying extends PureComponent {
 						variant="raised"
 						color="primary"
 						type="submit"
-						onClick={() => this.isPlaying(nowPlaying, classes)}
+						onClick={() => this.props.getNowPlaying()}
 					>
 						Listen again
 					</Button>
