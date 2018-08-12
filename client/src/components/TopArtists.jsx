@@ -36,6 +36,9 @@ const styles = () => ({
 	},
 	icon: {
 		color: 'white'
+	},
+	button: {
+		margin: '2rem'
 	}
 })
 
@@ -105,15 +108,15 @@ class TopArtists extends PureComponent {
 							</GridListTile>
 						</Grid>
 					))}
+					<Button
+						variant="extendedFab"
+						className={classes.button}
+						type="submit"
+						onClick={this.getNew}
+					>
+						Get recommendations
+					</Button>
 				</Grid>
-				<Button
-					variant="raised"
-					color="primary"
-					type="submit"
-					onClick={this.getNew}
-				>
-					Get recommendations
-				</Button>
 			</div>
 		)
 	}
