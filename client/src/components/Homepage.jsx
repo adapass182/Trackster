@@ -8,7 +8,8 @@ import {
 	Card,
 	CardActions,
 	CardMedia,
-	withStyles
+	withStyles,
+	Typography
 } from '@material-ui/core'
 
 import NowPlaying from './NowPlaying'
@@ -18,17 +19,10 @@ import TopTracks from './TopTracks'
 
 const styles = () => ({
 	root: {
-		backgroundColor: 'white'
+		backgroundColor: 'black'
 	},
-	trackButton: {
-		flex: 1,
-		flexDirection: 'row',
-		justifyContent: 'flexStart'
-	},
-	artistButton: {
-		flex: 1,
-		flexDirection: 'row',
-		justifyContent: 'flexEnd'
+	switchButton: {
+		width: 'auto'
 	}
 })
 
@@ -71,37 +65,19 @@ class Homepage extends Component {
 		}))
 	}
 
-	switchButton() {
-		if (this.state.switchView === true) {
-			return (
-				<Button
-					className={this.props.classes.trackButton}
-					variant="raised"
-					color="primary"
-					onClick={() => this.handleClick()}
-				>
-					See Tracks
-				</Button>
-			)
-		} else {
-			return (
-				<Button
-					className={this.props.classes.artistButton}
-					variant="raised"
-					color="primary"
-					onClick={() => this.handleClick()}
-				>
-					See Artists
-				</Button>
-			)
-		}
-	}
-
 	switchView() {
 		if (this.state.switchView === true) {
 			return <TopArtists />
 		} else {
 			return <TopTracks />
+		}
+	}
+
+	switchTitle() {
+		if (this.state.switchView === true) {
+			return 'Your Top Artists'
+		} else {
+			return 'Your Top Tracks'
 		}
 	}
 
@@ -113,8 +89,7 @@ class Homepage extends Component {
 				<Card className={classes.root}>
 					<CardActions style={{ justifyContent: 'right' }}>
 						<Button
-							variant="raised"
-							color="primary"
+							variant="extendedFab"
 							type="submit"
 							href="http://localhost:3000"
 						>
@@ -124,7 +99,31 @@ class Homepage extends Component {
 					<CardMedia>
 						<NowPlaying />
 					</CardMedia>
-					{this.switchButton()}
+					<CardActions
+						style={{
+							justifyContent: 'space-around'
+						}}
+					>
+						<Button
+							className={classes.switchButton}
+							variant="extendedFab"
+							onClick={() => this.handleClick()}
+							disabled={!this.state.switchView}
+						>
+							See Tracks
+						</Button>
+						<Typography variant="headline" style={{ color: 'white' }}>
+							{this.switchTitle()}
+						</Typography>
+						<Button
+							className={classes.switchButton}
+							variant="extendedFab"
+							onClick={() => this.handleClick()}
+							disabled={this.state.switchView}
+						>
+							See Artists
+						</Button>
+					</CardActions>
 					{this.switchView()}
 					<Recommendations />
 				</Card>

@@ -42,7 +42,7 @@ class NowPlaying extends PureComponent {
 								alt="AlbumArt"
 								style={{
 									width: '100%',
-									maxHeight: '100%',
+									maxHeight: '450px',
 									objectFit: 'cover',
 									margin: '2rem, auto'
 								}}
