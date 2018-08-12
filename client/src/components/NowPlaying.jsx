@@ -5,13 +5,14 @@ import PropTypes from 'prop-types'
 import { getNowPlaying } from '../actions/spotify_a'
 
 import {
-	Button,
 	Grid,
 	GridListTile,
 	GridListTileBar,
+	IconButton,
 	Typography,
 	withStyles
 } from '@material-ui/core'
+import Refresh from '@material-ui/icons/Refresh'
 
 const styles = () => ({
 	root: {
@@ -19,6 +20,9 @@ const styles = () => ({
 		flexWrap: 'wrap',
 		justifyContent: 'space-around',
 		listStyleType: 'none'
+	},
+	icon: {
+		color: 'white'
 	}
 })
 
@@ -46,6 +50,16 @@ class NowPlaying extends PureComponent {
 							<GridListTileBar
 								title={nowPlaying.trackName}
 								subtitle={nowPlaying.artistName}
+								actionIcon={
+									<IconButton
+										className={classes.icon}
+										type="submit"
+										onClick={() => this.props.getNowPlaying()}
+									>
+										<Refresh />
+									</IconButton>
+								}
+								actionPosition="right"
 							/>
 						</GridListTile>
 					</Grid>
@@ -70,16 +84,6 @@ class NowPlaying extends PureComponent {
 			<div>
 				<div className={classes.root}>
 					{this.isPlaying(nowPlaying, classes)}
-				</div>
-				<div>
-					<Button
-						variant="raised"
-						color="primary"
-						type="submit"
-						onClick={() => this.props.getNowPlaying()}
-					>
-						Listen again
-					</Button>
 				</div>
 			</div>
 		)
