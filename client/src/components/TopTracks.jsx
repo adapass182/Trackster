@@ -36,6 +36,9 @@ const styles = () => ({
 	},
 	icon: {
 		color: 'white'
+	},
+	button: {
+		margin: '2rem'
 	}
 })
 
@@ -106,15 +109,14 @@ class TopTracks extends PureComponent {
 							</GridListTile>
 						</Grid>
 					))}
+					<Button
+						variant="extendedFab"
+						className={classes.button}
+						onClick={this.getNew}
+					>
+						Get recommendations
+					</Button>
 				</Grid>
-				<Button
-					variant="raised"
-					color="primary"
-					type="submit"
-					onClick={this.getNew}
-				>
-					Get recommendations
-				</Button>
 			</div>
 		)
 	}

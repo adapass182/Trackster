@@ -28,7 +28,7 @@ const styles = () => ({
 		maxWidth: 400,
 		overflow: 'hidden',
 		width: '100%',
-		margin: '3rem auto 0.2rem auto'
+		margin: '1rem auto 0.2rem auto'
 	},
 	titleBar: {}
 })
