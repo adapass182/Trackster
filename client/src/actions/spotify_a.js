@@ -42,7 +42,7 @@ export const getTopArtists = () => dispatch => {
 // (NOTE: 20 is default, can retrieve custom amount by setting `{limit: #}` param in request)
 export const getTopTracks = () => dispatch => {
 	spotifyWebApi
-		.getMyTopTracks({ limit: 10 })
+		.getMyTopTracks({ limit: 12 })
 		.then(response => {
 			dispatch({
 				type: GET_TOP_TRACKS,

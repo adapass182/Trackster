@@ -10,32 +10,29 @@ import StarBorder from '@material-ui/icons/StarBorder'
 import {
 	Button,
 	Checkbox,
-	GridList,
+	Grid,
 	GridListTile,
 	GridListTileBar,
-	withStyles,
-	Typography
+	withStyles
 } from '@material-ui/core'
 
 const styles = () => ({
 	root: {
-		display: 'flex',
-		flexWrap: 'wrap',
-		justifyContent: 'space-around',
-		overflow: 'hidden',
-		width: '100%',
-		height: '100%',
-		paddingTop: '20px',
-		paddingBottom: '20px',
-		spacing: 0
-	},
-	gridList: {
 		flexGrow: 1,
-		margin: 0,
-		spacing: 8
+		padding: '1rem'
 	},
-	titleWrap: {
-		overflow: 'visible'
+	main: {
+		justifyContent: 'space-around',
+		alignItems: 'center'
+	},
+	item: {
+		listStyleType: 'none',
+		maxHeight: '320px',
+		maxWidth: '320px',
+		objectFit: 'contain'
+	},
+	gridBar: {
+		overflow: 'hidden'
 	},
 	icon: {
 		color: 'white'
@@ -81,23 +78,17 @@ class TopArtists extends PureComponent {
 
 		return (
 			<div className={classes.root}>
-				<div>
-					<Typography variant="headline" className={classes.header}>
-						Your Top Artists
-					</Typography>
-					<Typography>
-						Pick up to 5 of your top artists and hit the button below for some
-						new tunes!
-					</Typography>
-				</div>
-				<br />
-				<form>
-					<GridList className={classes.gridList}>
-						{topArtists.map(artist => (
-							<GridListTile key={artist.name} cols={1}>
-								<img src={artist.images[0].url || 'test'} alt={artist.name} />
+				<Grid container spacing={24} className={classes.main}>
+					{topArtists.map(artist => (
+						<Grid item s={3} xs={6} key={artist.name} className={classes.item}>
+							<GridListTile>
+								<img
+									src={artist.images[0].url}
+									alt={artist.name}
+									style={{ width: '300px', height: '300px' }}
+								/>
 								<GridListTileBar
-									className={classes.titleWrap}
+									className={classes.gridBar}
 									title={artist.name}
 									actionIcon={
 										<Checkbox
@@ -112,17 +103,17 @@ class TopArtists extends PureComponent {
 									actionPosition="left"
 								/>
 							</GridListTile>
-						))}
-					</GridList>
-					<Button
-						variant="raised"
-						color="primary"
-						type="submit"
-						onClick={this.getNew}
-					>
-						Get recommendations
-					</Button>
-				</form>
+						</Grid>
+					))}
+				</Grid>
+				<Button
+					variant="raised"
+					color="primary"
+					type="submit"
+					onClick={this.getNew}
+				>
+					Get recommendations
+				</Button>
 			</div>
 		)
 	}

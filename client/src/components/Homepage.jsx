@@ -109,8 +109,8 @@ class Homepage extends Component {
 		const { classes } = this.props
 
 		return (
-			<div className={classes.root}>
-				<Card className="App">
+			<div>
+				<Card className={classes.root}>
 					<CardActions style={{ justifyContent: 'right' }}>
 						<Button
 							variant="raised"
