@@ -44,7 +44,6 @@ class Homepage extends Component {
 		const params = this.getHashParams()
 		this.state = {
 			loggedIn: params.access_token ? true : false,
-			isPlaying: false,
 			switchView: false
 		}
 		if (params.access_token) {
