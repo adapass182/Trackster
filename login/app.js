@@ -1,5 +1,3 @@
-import { a_id, a_secret, a_uri } from './keys'
-
 /**
  * This is an example of a basic node.js script that performs
  * the Authorization Code oAuth2 flow to authenticate against
@@ -15,9 +13,11 @@ var cors = require('cors')
 var querystring = require('querystring')
 var cookieParser = require('cookie-parser')
 
-var client_id = a_id // Your client id
-var client_secret = a_secret // Your secret
-var redirect_uri = a_uri // Your redirect uri
+var myCodes = require('./keys')
+
+var client_id = myCodes.a_id // Your client id
+var client_secret = myCodes.a_secret // Your secret
+var redirect_uri = myCodes.a_uri // Your redirect uri
 
 /**
  * Generates a random string containing numbers and letters
