@@ -78,7 +78,6 @@ class NowPlaying extends PureComponent {
 			)
 		} else {
 			return (
-<<<<<<< Updated upstream
 				<Grid container spacing={24} className={classes.root}>
 					<Grid item key={'noPlayback'}>
 						<GridListTile>
@@ -103,22 +102,6 @@ class NowPlaying extends PureComponent {
 						</GridListTile>
 					</Grid>
 				</Grid>
-=======
-				<div>
-					<Typography>
-						{`I can't hear anything! Make sure you're playing a song on your
-						Spotify account, then click below and I'll have another listen...`}
-					</Typography>
-					<Button
-						variant="raised"
-						color="primary"
-						type="submit"
-						onClick={() => this.isPlaying(nowPlaying, classes)}
-					>
-						Listen again
-					</Button>
-				</div>
->>>>>>> Stashed changes
 			)
 		}
 	}
