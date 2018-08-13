@@ -9,10 +9,10 @@ import {
 	GridListTile,
 	GridListTileBar,
 	IconButton,
-	Typography,
 	withStyles
 } from '@material-ui/core'
 import Refresh from '@material-ui/icons/Refresh'
+import MusicOff from '@material-ui/icons/MusicOff'
 
 const styles = () => ({
 	root: {
@@ -23,6 +23,9 @@ const styles = () => ({
 	},
 	icon: {
 		color: 'white'
+	},
+	tileBar: {
+		overflow: 'auto'
 	}
 })
 
@@ -67,12 +70,30 @@ class NowPlaying extends PureComponent {
 			)
 		} else {
 			return (
-				<div>
-					<Typography>
-						{`I can't hear anything! Make sure you're playing a song on your
-						Spotify account, then click below and I'll have another listen...`}
-					</Typography>
-				</div>
+				<Grid container spacing={24} className={classes.root}>
+					<Grid item key={'noPlayback'}>
+						<GridListTile>
+							<MusicOff style={{ color: 'white', fontSize: '450px' }} />
+							<GridListTileBar
+								className={classes.tileBar}
+								title={'No Playback'}
+								subtitle={
+									'Start listening in Spotify and hit the refresh button!'
+								}
+								actionIcon={
+									<IconButton
+										className={classes.icon}
+										type="submit"
+										onClick={() => this.props.getNowPlaying()}
+									>
+										<Refresh />
+									</IconButton>
+								}
+								actionPosition="right"
+							/>
+						</GridListTile>
+					</Grid>
+				</Grid>
 			)
 		}
 	}
