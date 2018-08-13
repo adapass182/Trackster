@@ -21,6 +21,14 @@ const styles = () => ({
 	root: {
 		backgroundColor: 'black'
 	},
+	button: {
+		background: '#1db954',
+		'&:hover': {
+			background: '#1db500'
+		},
+		color: 'white',
+		fontWeight: 'bold'
+	},
 	switchButton: {
 		width: 'auto'
 	}
@@ -89,6 +97,8 @@ class Homepage extends Component {
 				<Card className={classes.root}>
 					<CardActions style={{ justifyContent: 'right' }}>
 						<Button
+							classes={{ root: classes.button }}
+							hover
 							variant="extendedFab"
 							type="submit"
 							href="http://localhost:3000"
@@ -105,6 +115,7 @@ class Homepage extends Component {
 						}}
 					>
 						<Button
+							classes={{ root: classes.button }}
 							className={classes.switchButton}
 							variant="extendedFab"
 							onClick={() => this.handleClick()}
@@ -119,6 +130,7 @@ class Homepage extends Component {
 							{this.switchTitle()}
 						</Typography>
 						<Button
+							classes={{ root: classes.button }}
 							className={classes.switchButton}
 							variant="extendedFab"
 							onClick={() => this.handleClick()}

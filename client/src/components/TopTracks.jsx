@@ -40,7 +40,13 @@ const styles = () => ({
 		color: 'white'
 	},
 	button: {
-		margin: '2rem'
+		margin: '2rem',
+		background: '#1db954',
+		'&:hover': {
+			background: '#1db500'
+		},
+		color: 'white',
+		fontWeight: 'bold'
 	}
 })
 
@@ -87,7 +93,8 @@ class TopTracks extends PureComponent {
 		if (this.props.selectedTracks.length === 0) {
 			this.setState({
 				open: true,
-				message: 'Choose up to 5 tracks to get recommendations'
+				message:
+					'Click the star icon to select up to 5 tracks and get recommendations'
 			})
 		} else {
 			this.props.getTrackRecommendations(this.props.selectedTracks)
@@ -128,6 +135,7 @@ class TopTracks extends PureComponent {
 						</Grid>
 					))}
 					<Button
+						classes={{ root: classes.button }}
 						variant="extendedFab"
 						className={classes.button}
 						onClick={this.getNew}
