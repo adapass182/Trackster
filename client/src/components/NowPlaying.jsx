@@ -116,7 +116,7 @@ class NowPlaying extends PureComponent {
 
 NowPlaying.propTypes = {
 	classes: PropTypes.object.isRequired,
-	nowPlaying: PropTypes.object.isRequired,
+	nowPlaying: PropTypes.object,
 	getNowPlaying: PropTypes.func.isRequired
 }
 

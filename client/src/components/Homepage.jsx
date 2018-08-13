@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 
 import Spotify from 'spotify-web-api-js'
 
@@ -98,7 +99,6 @@ class Homepage extends Component {
 					<CardActions style={{ justifyContent: 'right' }}>
 						<Button
 							classes={{ root: classes.button }}
-							hover
 							variant="extendedFab"
 							type="submit"
 							href="http://localhost:3000"
@@ -140,7 +140,7 @@ class Homepage extends Component {
 						</Button>
 					</CardActions>
 					{this.switchView()}
-					<Recommendations />
+					{this.props.recommendations !== null ? <Recommendations /> : null}
 				</Card>
 			</div>
 		)
@@ -148,7 +148,17 @@ class Homepage extends Component {
 }
 
 Homepage.propTypes = {
-	classes: PropTypes.object.isRequired
+	classes: PropTypes.object.isRequired,
+	recommendations: PropTypes.object
 }
 
-export default withStyles(styles)(Homepage)
+const mapStateToProps = state => {
+	return {
+		recommendations: state.recommendations
+	}
+}
+
+export default connect(
+	mapStateToProps,
+	null
+)(withStyles(styles)(Homepage))

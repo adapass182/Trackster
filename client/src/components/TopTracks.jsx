@@ -26,7 +26,8 @@ const styles = () => ({
 	},
 	main: {
 		justifyContent: 'space-around',
-		alignItems: 'center'
+		alignItems: 'center',
+		direction: 'row'
 	},
 	item: {
 		listStyleType: 'none',
