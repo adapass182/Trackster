@@ -60,7 +60,7 @@ class NowPlaying extends PureComponent {
 									<IconButton
 										className={classes.icon}
 										type="submit"
-										onClick={() => this.props.getNowPlaying()}
+										onClick={this.props.getNowPlaying}
 									>
 										<Refresh />
 									</IconButton>
@@ -105,18 +105,14 @@ class NowPlaying extends PureComponent {
 		const { classes, nowPlaying } = this.props
 
 		return (
-			<div>
-				<div className={classes.root}>
-					{this.isPlaying(nowPlaying, classes)}
-				</div>
-			</div>
+			<div className={classes.root}>{this.isPlaying(nowPlaying, classes)}</div>
 		)
 	}
 }
 
 NowPlaying.propTypes = {
 	classes: PropTypes.object.isRequired,
-	nowPlaying: PropTypes.object.isRequired,
+	nowPlaying: PropTypes.object,
 	getNowPlaying: PropTypes.func.isRequired
 }
 

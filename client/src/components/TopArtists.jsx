@@ -15,17 +15,19 @@ import {
 	Grid,
 	GridListTile,
 	GridListTileBar,
+	Slide,
 	withStyles
 } from '@material-ui/core'
 
 const styles = () => ({
 	root: {
-		flexGrow: 1,
+		flexSlide: 1,
 		padding: '1rem'
 	},
 	main: {
 		justifyContent: 'space-around',
-		alignItems: 'center'
+		alignItems: 'center',
+		direction: 'row'
 	},
 	item: {
 		listStyleType: 'none',
@@ -40,18 +42,34 @@ const styles = () => ({
 		color: 'white'
 	},
 	button: {
-		margin: '2rem'
+		margin: '2rem',
+		background: '#1db954',
+		'&:hover': {
+			background: '#1db500'
+		},
+		color: 'white',
+		fontWeight: 'bold'
 	}
 })
 
 class TopArtists extends PureComponent {
 	state = {
 		open: false,
-		message: ''
+		message: '',
+		checked: false
 	}
 
 	componentDidMount() {
 		this.props.getTopArtists()
+		this.setState({
+			checked: true
+		})
+	}
+
+	componentWillUnmount() {
+		this.setState({
+			checked: false
+		})
 	}
 
 	counter = 0
@@ -87,7 +105,8 @@ class TopArtists extends PureComponent {
 		if (this.props.selectedArtists.length === 0) {
 			this.setState({
 				open: true,
-				message: 'Choose up to 5 artists to get recommendations'
+				message:
+					'Click the star icon to select up to 5 artists and get recommendations'
 			})
 		} else {
 			this.props.getArtistRecommendations(this.props.selectedArtists)
@@ -96,37 +115,48 @@ class TopArtists extends PureComponent {
 
 	render() {
 		const { classes, topArtists } = this.props
+		const { checked } = this.state
 
 		return (
 			<div className={classes.root}>
 				<Grid container spacing={24} className={classes.main}>
 					{topArtists.map(artist => (
-						<Grid item s={3} xs={6} key={artist.name} className={classes.item}>
-							<GridListTile>
-								<img
-									src={artist.images[0].url}
-									alt={artist.name}
-									style={{ width: '300px', height: '300px' }}
-								/>
-								<GridListTileBar
-									className={classes.gridBar}
-									title={artist.name}
-									actionIcon={
-										<Checkbox
-											type="checkbox"
-											className={classes.icon}
-											icon={<StarBorder />}
-											checkedIcon={<Star />}
-											value={artist.id}
-											onClick={this.handleChange}
-										/>
-									}
-									actionPosition="left"
-								/>
-							</GridListTile>
-						</Grid>
+						<Slide
+							direction="left"
+							in={checked}
+							mountOnEnter
+							unmountOnExit
+							timeout={800}
+							key={artist.name}
+						>
+							<Grid item s={3} xs={6} className={classes.item}>
+								<GridListTile>
+									<img
+										src={artist.images[0].url}
+										alt={artist.name}
+										style={{ width: '300px', height: '300px' }}
+									/>
+									<GridListTileBar
+										className={classes.gridBar}
+										title={artist.name}
+										actionIcon={
+											<Checkbox
+												type="checkbox"
+												className={classes.icon}
+												icon={<StarBorder />}
+												checkedIcon={<Star />}
+												value={artist.id}
+												onClick={this.handleChange}
+											/>
+										}
+										actionPosition="left"
+									/>
+								</GridListTile>
+							</Grid>
+						</Slide>
 					))}
 					<Button
+						classes={{ root: classes.button }}
 						variant="extendedFab"
 						className={classes.button}
 						type="submit"

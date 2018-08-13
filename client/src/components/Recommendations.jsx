@@ -18,7 +18,7 @@ const styles = () => ({
 		flexWrap: 'wrap',
 		justifyContent: 'space-around',
 		overflow: 'hidden',
-		marginBottom: '2rem'
+		marginBottom: '4rem'
 	},
 	img: {
 		display: 'flex',
@@ -30,7 +30,25 @@ const styles = () => ({
 		width: '100%',
 		margin: '1rem auto 0.2rem auto'
 	},
-	titleBar: {}
+	mobileStepper: {
+		borderBottom: '2rem',
+		background: 'black'
+	},
+	button: {
+		background: '#1db954',
+		'&:hover': {
+			background: '#1db500'
+		},
+		color: 'white',
+		fontWeight: 'bold',
+		padding: '1rem inherit'
+	},
+	dot: {
+		backgroundColor: 'white'
+	},
+	dotActive: {
+		backgroundColor: '#1db954'
+	}
 })
 
 class Recommendations extends Component {
@@ -38,8 +56,12 @@ class Recommendations extends Component {
 		activeStep: 0
 	}
 
-	componentDidUpdate() {
-		window.scrollTo(0, document.body.scrollHeight)
+	componentDidMount() {
+		window.scrollTo({
+			left: 0,
+			top: document.body.scrollHeight,
+			behavior: 'smooth'
+		})
 	}
 
 	handleNext = () => {
@@ -62,75 +84,81 @@ class Recommendations extends Component {
 		const { classes, recommendations, theme } = this.props
 		const { activeStep } = this.state
 
-		if (recommendations === null) {
-			return null
-		} else {
-			return (
-				<div className={classes.root}>
-					<SwipeableViews
-						axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-						index={this.state.activeStep}
-						onChangeIndex={this.handleStepChange}
-						enableMouseEvents
-					>
-						{recommendations.tracks.map(track => (
-							<GridListTile key={track.id} className={classes.img} cols={1}>
-								<img
-									src={track.album.images[1].url}
-									alt={track.name}
-									className={classes.img}
-								/>
-								<GridListTileBar
-									title={track.name}
-									subtitle={track.artists[0].name}
-								/>
-							</GridListTile>
-						))}
-					</SwipeableViews>
-					<MobileStepper
-						steps={recommendations.tracks.length}
-						position="static"
-						activeStep={activeStep}
-						className={classes.mobileStepper}
-						nextButton={
-							<Button
-								size="small"
-								onClick={this.handleNext}
-								disabled={activeStep === recommendations.tracks.length - 1}
-							>
-								Next
-								{theme.direction === 'rtl' ? (
-									<KeyboardArrowLeft />
-								) : (
-									<KeyboardArrowRight />
-								)}
-							</Button>
-						}
-						backButton={
-							<Button
-								size="small"
-								onClick={this.handleBack}
-								disabled={activeStep === 0}
-							>
-								{theme.direction === 'rtl' ? (
-									<KeyboardArrowRight />
-								) : (
-									<KeyboardArrowLeft />
-								)}
-								Back
-							</Button>
-						}
-					/>
-				</div>
-			)
-		}
+		return (
+			<div className={classes.root}>
+				<SwipeableViews
+					axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+					index={this.state.activeStep}
+					onChangeIndex={this.handleStepChange}
+					enableMouseEvents
+				>
+					{recommendations.tracks.map(track => (
+						<GridListTile key={track.id} className={classes.img} cols={1}>
+							<img
+								src={track.album.images[1].url}
+								alt={track.name}
+								className={classes.img}
+							/>
+							<GridListTileBar
+								title={track.name}
+								subtitle={track.artists[0].name}
+							/>
+						</GridListTile>
+					))}
+				</SwipeableViews>
+				<MobileStepper
+					variant="dots"
+					steps={recommendations.tracks.length}
+					position="static"
+					activeStep={activeStep}
+					className={classes.mobileStepper}
+					classes={{
+						dot: classes.dot,
+						dotActive: classes.dotActive
+					}}
+					nextButton={
+						<Button
+							classes={{ root: classes.button }}
+							style={{ marginLeft: '0.5rem' }}
+							size="small"
+							onClick={this.handleNext}
+							disabled={activeStep === recommendations.tracks.length - 1}
+						>
+							Next
+							{theme.direction === 'rtl' ? (
+								<KeyboardArrowLeft />
+							) : (
+								<KeyboardArrowRight />
+							)}
+						</Button>
+					}
+					backButton={
+						<Button
+							classes={{ root: classes.button }}
+							style={{ marginRight: '0.5rem' }}
+							size="small"
+							onClick={this.handleBack}
+							disabled={activeStep === 0}
+						>
+							{theme.direction === 'rtl' ? (
+								<KeyboardArrowRight />
+							) : (
+								<KeyboardArrowLeft />
+							)}
+							Back
+						</Button>
+					}
+				/>
+			</div>
+		)
 	}
 }
 
 Recommendations.propTypes = {
 	classes: PropTypes.object.isRequired,
 	recommendations: PropTypes.object.isRequired,
-	theme: PropTypes.object.isRequired
+	theme: PropTypes.object.isRequired,
+	windowBottom: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => {

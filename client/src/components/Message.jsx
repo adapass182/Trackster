@@ -35,8 +35,8 @@ class Message extends PureComponent {
 
 Message.propTypes = {
 	handleClose: PropTypes.func.isRequired,
-	message: PropTypes.object.isRequired,
-	open: PropTypes.object.isRequired
+	message: PropTypes.string.isRequired,
+	open: PropTypes.bool.isRequired
 }
 
 export default Message
