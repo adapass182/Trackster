@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { Button, Snackbar } from '@material-ui/core'
 
+// Snackbar component used to provide helper prompts when selecting tracks/artists for recommendations
+
 class Message extends PureComponent {
 	render() {
 		const { handleClose, message, open } = this.props

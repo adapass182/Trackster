@@ -56,6 +56,7 @@ class Recommendations extends Component {
 		activeStep: 0
 	}
 
+	// Smooth scroll to bottom when component mounts
 	componentDidMount() {
 		window.scrollTo({
 			left: 0,
@@ -64,12 +65,14 @@ class Recommendations extends Component {
 		})
 	}
 
+	// Sets active step back to start when new recommendations load
 	componentDidUpdate(prevProps) {
 		if (prevProps.recommendations !== this.props.recommendations) {
 			this.setState({ activeStep: 0 })
 		}
 	}
 
+	// Functions to handle mobileStepper
 	handleNext = () => {
 		this.setState(prevState => ({
 			activeStep: prevState.activeStep + 1

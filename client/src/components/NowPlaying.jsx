@@ -38,10 +38,6 @@ const styles = () => ({
 })
 
 class NowPlaying extends PureComponent {
-	componentDidMount() {
-		this.props.getNowPlaying()
-	}
-
 	isPlaying(nowPlaying, classes) {
 		if (nowPlaying !== null) {
 			return (
@@ -96,7 +92,7 @@ class NowPlaying extends PureComponent {
 									<IconButton
 										className={classes.icon}
 										type="submit"
-										onClick={() => this.props.getNowPlaying()}
+										onClick={this.props.getNowPlaying}
 									>
 										<Refresh />
 									</IconButton>

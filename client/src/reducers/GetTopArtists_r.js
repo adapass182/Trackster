@@ -3,7 +3,7 @@ import { GET_TOP_ARTISTS } from '../actions/spotify_a'
 let y = [
 	{
 		name: null,
-		images: [{ url: 'test' }]
+		images: [{ url: '' }]
 	}
 ]
 

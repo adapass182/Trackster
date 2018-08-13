@@ -59,6 +59,7 @@ class TopArtists extends PureComponent {
 		checked: false
 	}
 
+	// Checked state used to manage transition animations
 	componentDidMount() {
 		this.setState({
 			checked: true
@@ -71,8 +72,10 @@ class TopArtists extends PureComponent {
 		})
 	}
 
+	// Ensures no more than 5 seeds are provided to recommendations GET request
 	counter = 0
 
+	// Adds artist ID's to state, used as seeds for recommendations
 	handleChange = event => {
 		if (event.target.checked && this.counter < 5) {
 			this.props.addArtist(event.target.value)
@@ -93,6 +96,7 @@ class TopArtists extends PureComponent {
 		}
 	}
 
+	// Snackbar close function (set in Message component to auto-close in 2secs)
 	handleClose = (event, reason) => {
 		if (reason === 'clickaway') {
 			return
@@ -100,6 +104,7 @@ class TopArtists extends PureComponent {
 		this.setState({ open: false })
 	}
 
+	// Checks that some Spotify ID seeds are present in state and executes get request, otherwise opens a snackbar prompt
 	getNew = () => {
 		if (this.props.selectedArtists.length === 0) {
 			this.setState({

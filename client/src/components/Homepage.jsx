@@ -3,7 +3,11 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import Spotify from 'spotify-web-api-js'
-import { getTopArtists, getTopTracks } from '../actions/spotify_a'
+import {
+	getNowPlaying,
+	getTopArtists,
+	getTopTracks
+} from '../actions/spotify_a'
 
 import {
 	Button,
@@ -53,6 +57,7 @@ class Homepage extends Component {
 
 	componentDidMount() {
 		window.scrollTo(0, 0)
+		this.props.getNowPlaying()
 		this.props.getTopArtists()
 		this.props.getTopTracks()
 	}
@@ -70,12 +75,14 @@ class Homepage extends Component {
 		return hashParams
 	}
 
+	// Handles click event to switch state and render new component
 	handleClick() {
 		this.setState(prevState => ({
 			switchView: !prevState.switchView
 		}))
 	}
 
+	// Switches between TopArtists and TopTracks components
 	switchView() {
 		if (this.state.switchView === true) {
 			return <TopArtists />
@@ -84,6 +91,7 @@ class Homepage extends Component {
 		}
 	}
 
+	// Displays different title depending on which component is currently rendered
 	switchTitle() {
 		if (this.state.switchView === true) {
 			return 'Your Top Artists'
@@ -151,6 +159,7 @@ class Homepage extends Component {
 
 Homepage.propTypes = {
 	classes: PropTypes.object.isRequired,
+	getNowPlaying: PropTypes.func.isRequired,
 	getTopArtists: PropTypes.func.isRequired,
 	getTopTracks: PropTypes.func.isRequired,
 	recommendations: PropTypes.object
@@ -164,5 +173,5 @@ const mapStateToProps = state => {
 
 export default connect(
 	mapStateToProps,
-	{ getTopArtists, getTopTracks }
+	{ getNowPlaying, getTopArtists, getTopTracks }
 )(withStyles(styles)(Homepage))
