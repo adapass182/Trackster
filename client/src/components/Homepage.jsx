@@ -112,7 +112,10 @@ class Homepage extends Component {
 						>
 							See Tracks
 						</Button>
-						<Typography variant="headline" style={{ color: 'white' }}>
+						<Typography
+							variant="headline"
+							style={{ color: 'white', fontWeight: 'bold' }}
+						>
 							{this.switchTitle()}
 						</Typography>
 						<Button

@@ -24,8 +24,10 @@ const styles = () => ({
 	icon: {
 		color: 'white'
 	},
-	tileBar: {
-		overflow: 'auto'
+	titleWrap: {
+		fontWeight: 'bold',
+		overflow: 'hidden',
+		textShadow: '1px 1px 2px black'
 	}
 })
 
@@ -35,7 +37,7 @@ class NowPlaying extends PureComponent {
 	}
 
 	isPlaying(nowPlaying, classes) {
-		if (this.props.nowPlaying !== null) {
+		if (nowPlaying !== null) {
 			return (
 				<Grid container spacing={24} className={classes.root}>
 					<Grid item key={nowPlaying.trackName}>
@@ -51,6 +53,7 @@ class NowPlaying extends PureComponent {
 								}}
 							/>
 							<GridListTileBar
+								classes={{ titleWrap: classes.titleWrap }}
 								title={nowPlaying.trackName}
 								subtitle={nowPlaying.artistName}
 								actionIcon={
