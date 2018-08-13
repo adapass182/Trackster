@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
+import Message from './Message'
+
 import { getTrackRecommendations, getTopTracks } from '../actions/spotify_a'
 import { addTrack, remTrack } from '../actions/selector_a'
 
@@ -16,10 +18,14 @@ import {
 	withStyles
 } from '@material-ui/core'
 
-const styles = () => ({
+const styles = theme => ({
 	root: {
 		flexGrow: 1,
 		padding: '1rem'
+	},
+	close: {
+		width: theme.spacing.unit * 4,
+		height: theme.spacing.unit * 4
 	},
 	main: {
 		justifyContent: 'space-around',
@@ -43,6 +49,11 @@ const styles = () => ({
 })
 
 class TopTracks extends PureComponent {
+	state = {
+		open: false,
+		message: ''
+	}
+
 	componentDidMount() {
 		this.props.getTopTracks()
 	}
@@ -56,7 +67,10 @@ class TopTracks extends PureComponent {
 			return (event.target.checked = true)
 		}
 		if (event.target.checked && this.counter === 5) {
-			window.alert('Woah there! Spotify can only handle 5 at a time, go easy!')
+			this.setState({
+				open: true,
+				message: 'Max 5 tracks for recommendations'
+			})
 			return (event.target.checked = false)
 		}
 		if (!event.target.checked) {
@@ -66,11 +80,19 @@ class TopTracks extends PureComponent {
 		}
 	}
 
+	handleClose = (event, reason) => {
+		if (reason === 'clickaway') {
+			return
+		}
+		this.setState({ open: false })
+	}
+
 	getNew = () => {
 		if (this.props.selectedTracks.length === 0) {
-			window.alert(
-				'Select up to 5 tracks above by clicking the star icon to get recommendations'
-			)
+			this.setState({
+				open: true,
+				message: 'Choose up to 5 tracks to get recommendations'
+			})
 		} else {
 			this.props.getTrackRecommendations(this.props.selectedTracks)
 		}
@@ -116,6 +138,12 @@ class TopTracks extends PureComponent {
 					>
 						Get recommendations
 					</Button>
+					<Message
+						open={this.state.open}
+						message={this.state.message}
+						handleClose={this.handleClose}
+						classes={this.props.classes}
+					/>
 				</Grid>
 			</div>
 		)
