@@ -1,0 +1,3 @@
+var client_id = 'fcd11d1799534820990f230dd2fcbbe1' // Your client id
+var client_secret = '4570a14bbe5247a6ba3d3a453e5ed35b' // Your secret
+var redirect_uri = 'http://localhost:8888/callback' // Your redirect uri
