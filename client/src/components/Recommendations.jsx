@@ -64,6 +64,12 @@ class Recommendations extends Component {
 		})
 	}
 
+	componentDidUpdate(prevProps) {
+		if (prevProps.recommendations !== this.props.recommendations) {
+			this.setState({ activeStep: 0 })
+		}
+	}
+
 	handleNext = () => {
 		this.setState(prevState => ({
 			activeStep: prevState.activeStep + 1
