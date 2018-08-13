@@ -54,6 +54,7 @@ export const getTopTracks = () => dispatch => {
 		})
 }
 
+// Uses up to 5 Spotify IDs (tracks or artists) as seeds to fetch a playlist of 20 recommendations
 export const getTrackRecommendations = seeds => dispatch => {
 	spotifyWebApi
 		.getRecommendations({ seed_tracks: seeds })

@@ -60,7 +60,6 @@ class TopArtists extends PureComponent {
 	}
 
 	componentDidMount() {
-		this.props.getTopArtists()
 		this.setState({
 			checked: true
 		})

@@ -60,7 +60,6 @@ class TopTracks extends PureComponent {
 	}
 
 	componentDidMount() {
-		this.props.getTopTracks()
 		this.setState({
 			checked: true
 		})

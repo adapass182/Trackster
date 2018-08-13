@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import Spotify from 'spotify-web-api-js'
+import { getTopArtists, getTopTracks } from '../actions/spotify_a'
 
 import {
 	Button,
@@ -52,7 +53,9 @@ class Homepage extends Component {
 	}
 
 	componentDidMount() {
-		window.scrollTo(0, 24)
+		window.scrollTo(0, 0)
+		this.props.getTopArtists()
+		this.props.getTopTracks()
 	}
 
 	getHashParams() {
@@ -149,6 +152,8 @@ class Homepage extends Component {
 
 Homepage.propTypes = {
 	classes: PropTypes.object.isRequired,
+	getTopArtists: PropTypes.func.isRequired,
+	getTopTracks: PropTypes.func.isRequired,
 	recommendations: PropTypes.object
 }
 
@@ -160,5 +165,5 @@ const mapStateToProps = state => {
 
 export default connect(
 	mapStateToProps,
-	null
+	{ getTopArtists, getTopTracks }
 )(withStyles(styles)(Homepage))
