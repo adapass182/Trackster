@@ -9,7 +9,8 @@ import {
 	GridListTile,
 	GridListTileBar,
 	IconButton,
-	withStyles
+	withStyles,
+	Typography
 } from '@material-ui/core'
 import Refresh from '@material-ui/icons/Refresh'
 import MusicOff from '@material-ui/icons/MusicOff'
@@ -28,6 +29,11 @@ const styles = () => ({
 		fontWeight: 'bold',
 		overflow: 'hidden',
 		textShadow: '1px 1px 2px black'
+	},
+	text: {
+		color: 'white',
+		textAlign: 'center',
+		fontWeight: 'bold'
 	}
 })
 
@@ -41,6 +47,9 @@ class NowPlaying extends PureComponent {
 			return (
 				<Grid container spacing={24} className={classes.root}>
 					<Grid item key={nowPlaying.trackName}>
+						<Typography variant="headline" classes={{ headline: classes.text }}>
+							Now Playing
+						</Typography>
 						<GridListTile>
 							<img
 								src={nowPlaying.image.url}
