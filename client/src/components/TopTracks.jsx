@@ -15,12 +15,13 @@ import {
 	Grid,
 	GridListTile,
 	GridListTileBar,
+	Slide,
 	withStyles
 } from '@material-ui/core'
 
 const styles = () => ({
 	root: {
-		flexGrow: 1,
+		flexSlide: 1,
 		padding: '1rem'
 	},
 	main: {
@@ -53,11 +54,21 @@ const styles = () => ({
 class TopTracks extends PureComponent {
 	state = {
 		open: false,
-		message: ''
+		message: '',
+		checked: false
 	}
 
 	componentDidMount() {
 		this.props.getTopTracks()
+		this.setState({
+			checked: true
+		})
+	}
+
+	componentWillUnmount() {
+		this.setState({
+			checked: false
+		})
 	}
 
 	counter = 0
@@ -103,36 +114,46 @@ class TopTracks extends PureComponent {
 
 	render() {
 		const { classes, topTracks } = this.props
+		const { checked } = this.state
 
 		return (
 			<div className={classes.root}>
 				<Grid container spacing={24} className={classes.main}>
 					{topTracks.map(track => (
-						<Grid item s={3} xs={6} key={track.name} className={classes.item}>
-							<GridListTile>
-								<img
-									src={track.album.images[0].url || null}
-									alt={track.name}
-									style={{ width: '300px', height: '300px' }}
-								/>
-								<GridListTileBar
-									className={classes.gridBar}
-									title={track.name}
-									subtitle={track.artists[0].name}
-									actionIcon={
-										<Checkbox
-											type="checkbox"
-											className={classes.icon}
-											icon={<StarBorder />}
-											checkedIcon={<Star />}
-											value={track.id}
-											onClick={this.handleChange}
-										/>
-									}
-									actionPosition="left"
-								/>
-							</GridListTile>
-						</Grid>
+						<Slide
+							direction="right"
+							in={checked}
+							mountOnEnter
+							unmountOnExit
+							timeout={800}
+							key={track.name}
+						>
+							<Grid item s={3} xs={6} className={classes.item}>
+								<GridListTile>
+									<img
+										src={track.album.images[0].url || null}
+										alt={track.name}
+										style={{ width: '300px', height: '300px' }}
+									/>
+									<GridListTileBar
+										className={classes.gridBar}
+										title={track.name}
+										subtitle={track.artists[0].name}
+										actionIcon={
+											<Checkbox
+												type="checkbox"
+												className={classes.icon}
+												icon={<StarBorder />}
+												checkedIcon={<Star />}
+												value={track.id}
+												onClick={this.handleChange}
+											/>
+										}
+										actionPosition="left"
+									/>
+								</GridListTile>
+							</Grid>
+						</Slide>
 					))}
 					<Button
 						classes={{ root: classes.button }}
