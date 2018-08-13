@@ -103,11 +103,17 @@ class Recommendations extends Component {
 				>
 					{recommendations.tracks.map(track => (
 						<GridListTile key={track.id} className={classes.img} cols={1}>
-							<img
-								src={track.album.images[1].url}
-								alt={track.name}
-								className={classes.img}
-							/>
+							<a
+								href={track.external_urls.spotify}
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								<img
+									src={track.album.images[1].url}
+									alt={track.name}
+									className={classes.img}
+								/>
+							</a>
 							<GridListTileBar
 								title={track.name}
 								subtitle={track.artists[0].name}
