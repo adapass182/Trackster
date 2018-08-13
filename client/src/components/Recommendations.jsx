@@ -31,7 +31,23 @@ const styles = () => ({
 		margin: '1rem auto 0.2rem auto'
 	},
 	mobileStepper: {
-		borderBottom: '2rem'
+		borderBottom: '2rem',
+		background: 'black'
+	},
+	button: {
+		background: '#1db954',
+		'&:hover': {
+			background: '#1db500'
+		},
+		color: 'white',
+		fontWeight: 'bold',
+		padding: '1rem inherit'
+	},
+	dot: {
+		backgroundColor: 'white'
+	},
+	dotActive: {
+		backgroundColor: '#1db954'
 	}
 })
 
@@ -91,12 +107,19 @@ class Recommendations extends Component {
 					))}
 				</SwipeableViews>
 				<MobileStepper
+					variant="dots"
 					steps={recommendations.tracks.length}
 					position="static"
 					activeStep={activeStep}
 					className={classes.mobileStepper}
+					classes={{
+						dot: classes.dot,
+						dotActive: classes.dotActive
+					}}
 					nextButton={
 						<Button
+							classes={{ root: classes.button }}
+							style={{ marginLeft: '0.5rem' }}
 							size="small"
 							onClick={this.handleNext}
 							disabled={activeStep === recommendations.tracks.length - 1}
@@ -111,6 +134,8 @@ class Recommendations extends Component {
 					}
 					backButton={
 						<Button
+							classes={{ root: classes.button }}
+							style={{ marginRight: '0.5rem' }}
 							size="small"
 							onClick={this.handleBack}
 							disabled={activeStep === 0}
