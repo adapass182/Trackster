@@ -118,7 +118,6 @@ class TopTracks extends PureComponent {
 
 		return (
 			<div className={classes.root}>
-<<<<<<< Updated upstream
 				<Grid container spacing={24} className={classes.main}>
 					{topTracks.map(track => (
 						<Slide
@@ -156,39 +155,6 @@ class TopTracks extends PureComponent {
 							</Grid>
 						</Slide>
 					))}
-=======
-				<div>
-					<Typography variant="headline">Your Top Tracks</Typography>
-					<Typography>
-						Pick up to 5 of your top tracks and hit the button below for some
-						new tunes!
-					</Typography>
-				</div>
-				<br />
-				<form>
-					<GridList className={classes.gridList}>
-						{topTracks.map(track => (
-							<GridListTile key={track.name} cols={1}>
-								<img src={track.album.images[0].url || null} alt={track.name} />
-								<GridListTileBar
-									className={classes.titleWrap}
-									title={track.name}
-									subtitle={track.artists[0].name}
-									actionIcon={
-										<Checkbox
-											className={classes.icon}
-											icon={<StarBorder />}
-											checkedIcon={<Star />}
-											value={track.id}
-											onChange={this.handleChange}
-										/>
-									}
-									actionPosition="left"
-								/>
-							</GridListTile>
-						))}
-					</GridList>
->>>>>>> Stashed changes
 					<Button
 						classes={{ root: classes.button }}
 						variant="extendedFab"

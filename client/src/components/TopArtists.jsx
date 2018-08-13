@@ -123,7 +123,6 @@ class TopArtists extends PureComponent {
 
 		return (
 			<div className={classes.root}>
-<<<<<<< Updated upstream
 				<Grid container spacing={24} className={classes.main}>
 					{topArtists.map(artist => (
 						<Slide
@@ -160,40 +159,6 @@ class TopArtists extends PureComponent {
 							</Grid>
 						</Slide>
 					))}
-=======
-				<div>
-					<Typography variant="headline" className={classes.header}>
-						Your Top Artists
-					</Typography>
-					<Typography>
-						Pick up to 5 of your top artists and hit the button below for some
-						new tunes!
-					</Typography>
-				</div>
-				<br />
-				<form>
-					<GridList className={classes.gridList}>
-						{topArtists.map(artist => (
-							<GridListTile key={artist.name} cols={1}>
-								<img src={artist.images[0].url || 'test'} alt={artist.name} />
-								<GridListTileBar
-									className={classes.titleWrap}
-									title={artist.name}
-									actionIcon={
-										<Checkbox
-											className={classes.icon}
-											icon={<StarBorder />}
-											checkedIcon={<Star />}
-											value={artist.id}
-											onChange={this.handleChange}
-										/>
-									}
-									actionPosition="left"
-								/>
-							</GridListTile>
-						))}
-					</GridList>
->>>>>>> Stashed changes
 					<Button
 						classes={{ root: classes.button }}
 						variant="extendedFab"
