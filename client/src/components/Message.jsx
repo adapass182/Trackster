@@ -1,11 +1,10 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { Button, IconButton, Snackbar } from '@material-ui/core'
-import CloseIcon from '@material-ui/icons/Close'
+import { Button, Snackbar } from '@material-ui/core'
 
 class Message extends PureComponent {
 	render() {
-		const { classes, handleClose, message, open } = this.props
+		const { handleClose, message, open } = this.props
 		return (
 			<Snackbar
 				anchorOrigin={{
@@ -13,7 +12,7 @@ class Message extends PureComponent {
 					horizontal: 'left'
 				}}
 				open={open}
-				autoHideDuration={5000}
+				autoHideDuration={2000}
 				onClose={handleClose}
 				ContentProps={{
 					'aria-describedby': 'message-id'
@@ -21,22 +20,13 @@ class Message extends PureComponent {
 				message={<span id="message-id">{message}</span>}
 				action={[
 					<Button
-						key="OKAY"
+						key="confirm"
 						color="secondary"
 						size="small"
 						onClick={handleClose}
 					>
-						OKAY
-					</Button>,
-					<IconButton
-						key="close"
-						aria-label="Close"
-						color="inherit"
-						className={classes.close}
-						onClick={handleClose}
-					>
-						<CloseIcon />
-					</IconButton>
+						GOT IT!
+					</Button>
 				]}
 			/>
 		)
@@ -44,7 +34,6 @@ class Message extends PureComponent {
 }
 
 Message.propTypes = {
-	classes: PropTypes.object.isRequired,
 	handleClose: PropTypes.func.isRequired,
 	message: PropTypes.object.isRequired,
 	open: PropTypes.object.isRequired

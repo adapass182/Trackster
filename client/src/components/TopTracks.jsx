@@ -18,14 +18,10 @@ import {
 	withStyles
 } from '@material-ui/core'
 
-const styles = theme => ({
+const styles = () => ({
 	root: {
 		flexGrow: 1,
 		padding: '1rem'
-	},
-	close: {
-		width: theme.spacing.unit * 4,
-		height: theme.spacing.unit * 4
 	},
 	main: {
 		justifyContent: 'space-around',
@@ -142,7 +138,6 @@ class TopTracks extends PureComponent {
 						open={this.state.open}
 						message={this.state.message}
 						handleClose={this.handleClose}
-						classes={this.props.classes}
 					/>
 				</Grid>
 			</div>
