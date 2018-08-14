@@ -23,19 +23,22 @@ const styles = () => ({
 		flexWrap: 'wrap',
 		justifyContent: 'space-around',
 		overflow: 'hidden',
-		width: '100%',
+		width: '90%',
 		height: '100%',
+		margin: 'auto',
 		paddingTop: '20px',
 		paddingBottom: '20px',
-		spacing: 0
-	},
-	gridList: {
-		flexGrow: 1,
-		margin: 0,
 		spacing: 8
 	},
-	titleWrap: {
-		overflow: 'visible'
+	gridList: {
+		width: 'auto',
+		height: 'auto'
+	},
+	gridTile: {
+		padding: '3rem'
+	},
+	gridBar: {
+		overflow: 'hidden'
 	},
 	icon: {
 		color: 'white'
@@ -92,10 +95,10 @@ class TopTracks extends PureComponent {
 				<form>
 					<GridList className={classes.gridList}>
 						{topTracks.map(track => (
-							<GridListTile key={track.name} cols={1}>
+							<GridListTile key={track.name} className={classes.gridTile}>
 								<img src={track.album.images[0].url || null} alt={track.name} />
 								<GridListTileBar
-									className={classes.titleWrap}
+									className={classes.gridBar}
 									title={track.name}
 									subtitle={track.artists[0].name}
 									actionIcon={
