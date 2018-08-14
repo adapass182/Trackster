@@ -106,7 +106,7 @@ class Recommendations extends Component {
 							<a
 								href={track.external_urls.spotify}
 								target="_blank"
-								rel="noopener noreferrer"
+								rel="noopener noreferrer external"
 							>
 								<img
 									src={track.album.images[1].url}

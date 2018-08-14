@@ -2,9 +2,10 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import { getNowPlaying } from '../actions/spotify_a'
+import { getNowPlaying, nextTrack } from '../actions/spotify_a'
 
 import {
+	Button,
 	Grid,
 	GridListTile,
 	GridListTileBar,
@@ -117,8 +118,9 @@ class NowPlaying extends PureComponent {
 
 NowPlaying.propTypes = {
 	classes: PropTypes.object.isRequired,
-	nowPlaying: PropTypes.object,
-	getNowPlaying: PropTypes.func.isRequired
+	getNowPlaying: PropTypes.func.isRequired,
+	nextTrack: PropTypes.func.isRequired,
+	nowPlaying: PropTypes.object
 }
 
 const mapStateToProps = state => {
@@ -129,5 +131,5 @@ const mapStateToProps = state => {
 
 export default connect(
 	mapStateToProps,
-	{ getNowPlaying }
+	{ getNowPlaying, nextTrack }
 )(withStyles(styles)(NowPlaying))

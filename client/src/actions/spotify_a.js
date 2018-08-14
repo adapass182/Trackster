@@ -6,6 +6,7 @@ export const GET_NOW_PLAYING = 'GET_NOW_PLAYING'
 export const GET_RECOMMENDATIONS = 'GET_RECOMMENDATIONS'
 export const GET_TOP_ARTISTS = 'GET_TOP_ARTISTS'
 export const GET_TOP_TRACKS = 'GET_TOP_TRACKS'
+export const NEXT_TRACK = 'NEXT_TRACK'
 
 // Fetches current playing track for logged in user.
 export const getNowPlaying = () => dispatch => {
@@ -75,6 +76,20 @@ export const getArtistRecommendations = seeds => dispatch => {
 		.then(response => {
 			dispatch({
 				type: GET_RECOMMENDATIONS,
+				payload: response
+			})
+		})
+		.catch(error => {
+			console.error(error)
+		})
+}
+
+export const nextTrack = () => dispatch => {
+	spotifyWebApi
+		.skipToNext({})
+		.then(response => {
+			dispatch({
+				type: NEXT_TRACK,
 				payload: response
 			})
 		})
