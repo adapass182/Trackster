@@ -5,7 +5,6 @@ import PropTypes from 'prop-types'
 import { getNowPlaying, nextTrack } from '../actions/spotify_a'
 
 import {
-	Button,
 	Grid,
 	GridListTile,
 	GridListTileBar,
