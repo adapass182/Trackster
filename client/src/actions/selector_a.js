@@ -2,6 +2,7 @@ export const ADD_ARTIST = 'ADD_ARTIST'
 export const ADD_TRACK = 'ADD_TRACK'
 export const REM_ARTIST = 'REM_ARTIST'
 export const REM_TRACK = 'REM_TRACK'
+export const STOP_LOADING = 'STOP_LOADING'
 
 export const addTrack = track => {
 	return {
@@ -28,5 +29,11 @@ export const remArtist = artist => {
 	return {
 		type: REM_ARTIST,
 		payload: artist
+	}
+}
+
+export const stopLoading = () => {
+	return {
+		type: STOP_LOADING
 	}
 }
