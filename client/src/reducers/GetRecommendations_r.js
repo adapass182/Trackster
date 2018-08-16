@@ -9,8 +9,7 @@ export default (state = null, { type, payload }) => {
 		return { ...payload, error: false }
 	case GET_RECOMMENDATIONS_ERROR:
 		return {
-			status: payload.status,
-			statusText: payload.statusText,
+			message: payload.response,
 			error: true
 		}
 	default:

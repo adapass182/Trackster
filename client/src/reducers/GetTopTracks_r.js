@@ -1,6 +1,6 @@
 import { GET_TOP_TRACKS } from '../actions/spotify_a'
 
-let y = [
+let initialState_Tracks = [
 	{
 		name: null,
 		album: {
@@ -14,7 +14,7 @@ let y = [
 	}
 ]
 
-export default (state = y, { type, payload }) => {
+export default (state = initialState_Tracks, { type, payload }) => {
 	switch (type) {
 	case GET_TOP_TRACKS:
 		return payload

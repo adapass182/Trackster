@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import Message from './Message'
+import Message from './utilities/Message'
 
 import { startLoading } from '../actions/loading_a'
 import { addArtist, remArtist } from '../actions/selector_a'
@@ -201,5 +201,11 @@ const mapStateToProps = state => {
 
 export default connect(
 	mapStateToProps,
-	{ addArtist, getArtistRecommendations, getTopArtists, remArtist, startLoading }
+	{
+		addArtist,
+		getArtistRecommendations,
+		getTopArtists,
+		remArtist,
+		startLoading
+	}
 )(withStyles(styles)(TopArtists))

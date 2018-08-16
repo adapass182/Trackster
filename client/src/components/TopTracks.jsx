@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import Message from './Message'
+import Message from './utilities/Message'
 
 import { startLoading } from '../actions/loading_a'
 import { addTrack, remTrack } from '../actions/selector_a'
@@ -110,7 +110,7 @@ class TopTracks extends PureComponent {
 			})
 		} else {
 			this.props.startLoading()
-			this.props.getTrackRecommendations(this.props.selectedTracks)
+			this.props.getTrackRecommendations('pop')
 		}
 	}
 

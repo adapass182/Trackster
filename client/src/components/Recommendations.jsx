@@ -1,18 +1,20 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+
 import {
 	Button,
-	CircularProgress,
 	GridListTile,
 	GridListTileBar,
 	MobileStepper,
-	withStyles,
-	Typography
+	withStyles
 } from '@material-ui/core'
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
 import SwipeableViews from 'react-swipeable-views'
+
+import Loading from './utilities/Loading'
+import Error from './utilities/Error'
 
 const styles = () => ({
 	root: {
@@ -50,14 +52,6 @@ const styles = () => ({
 	},
 	dotActive: {
 		backgroundColor: '#1db954'
-	},
-	progress: {
-		color: '#1db500',
-		justifyContent: 'center'
-	},
-	position: {
-		marginBottom: '11rem',
-		marginTop: '4rem'
 	}
 })
 
@@ -111,23 +105,9 @@ class Recommendations extends Component {
 		if (loading === false && recommendations === null) {
 			return null
 		} else if (loading === true) {
-			return (
-				<div className={classes.root}>
-					<CircularProgress
-						classes={{ colorPrimary: classes.progress, root: classes.position }}
-					/>
-				</div>
-			)
+			return <Loading />
 		} else if (recommendations.error) {
-			return (
-				<div className={classes.root}>
-					<Typography style={{ color: 'white', fontWeight: 'bold' }}>
-						Error! Error! <br />
-						Status {recommendations.status} <br />
-						{recommendations.statusText}
-					</Typography>
-				</div>
-			)
+			return <Error message={recommendations.message} />
 		} else {
 			return (
 				<div className={classes.root}>
