@@ -1,9 +1,8 @@
-import { GET_RECOMMENDATIONS } from '../actions/spotify_a'
-import { STOP_LOADING } from '../actions/selector_a'
+import { START_LOADING, STOP_LOADING } from '../actions/loading_a'
 
 export default (state = false, { type }) => {
 	switch (type) {
-	case GET_RECOMMENDATIONS:
+	case START_LOADING:
 		return (state = true)
 	case STOP_LOADING:
 		return (state = false)

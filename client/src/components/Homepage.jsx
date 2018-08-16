@@ -150,7 +150,7 @@ class Homepage extends Component {
 						</Button>
 					</CardActions>
 					{this.switchView()}
-					{this.props.recommendations !== null ? <Recommendations /> : null}
+					<Recommendations />
 				</Card>
 			</div>
 		)
