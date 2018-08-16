@@ -4,6 +4,7 @@ const spotifyWebApi = new Spotify()
 
 export const GET_NOW_PLAYING = 'GET_NOW_PLAYING'
 export const GET_RECOMMENDATIONS = 'GET_RECOMMENDATIONS'
+export const GET_RECOMMENDATIONS_ERROR = 'GET_RECOMMENDATIONS_ERROR'
 export const GET_TOP_ARTISTS = 'GET_TOP_ARTISTS'
 export const GET_TOP_TRACKS = 'GET_TOP_TRACKS'
 export const NEXT_TRACK = 'NEXT_TRACK'
@@ -67,6 +68,11 @@ export const getTrackRecommendations = seeds => dispatch => {
 		})
 		.catch(error => {
 			console.error(error)
+			dispatch({
+				type: GET_RECOMMENDATIONS_ERROR,
+				payload: error,
+				error: true
+			})
 		})
 }
 
@@ -81,6 +87,11 @@ export const getArtistRecommendations = seeds => dispatch => {
 		})
 		.catch(error => {
 			console.error(error)
+			dispatch({
+				type: GET_RECOMMENDATIONS_ERROR,
+				payload: error,
+				error: true
+			})
 		})
 }
 

@@ -8,7 +8,8 @@ import {
 	GridListTile,
 	GridListTileBar,
 	MobileStepper,
-	withStyles
+	withStyles,
+	Typography
 } from '@material-ui/core'
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
@@ -73,6 +74,11 @@ class Recommendations extends Component {
 
 	// Sets active step back to start when new recommendations load
 	componentDidUpdate(prevProps) {
+		window.scrollTo({
+			left: 0,
+			top: document.body.scrollHeight,
+			behavior: 'smooth'
+		})
 		if (prevProps.recommendations !== this.props.recommendations) {
 			this.setState({ activeStep: 0 })
 		}
@@ -105,6 +111,16 @@ class Recommendations extends Component {
 			return (
 				<div className={classes.root}>
 					<CircularProgress classes={{ colorPrimary: classes.progress }} />
+				</div>
+			)
+		} else if (recommendations.error) {
+			return (
+				<div className={classes.root}>
+					<Typography style={{ color: 'white', fontWeight: 'bold' }}>
+						Error! Error! <br />
+						Status {recommendations.status} <br />
+						{recommendations.statusText}
+					</Typography>
 				</div>
 			)
 		} else {

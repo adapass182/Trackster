@@ -120,7 +120,7 @@ class TopTracks extends PureComponent {
 
 		return (
 			<div className={classes.root}>
-				<Grid container direction='row' spacing={24} className={classes.main}>
+				<Grid container direction="row" spacing={24} className={classes.main}>
 					{topTracks.map(track => (
 						<Slide
 							direction="right"
