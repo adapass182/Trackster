@@ -49,6 +49,10 @@ const styles = () => ({
 		},
 		color: 'white',
 		fontWeight: 'bold'
+	},
+	recommendations: {
+		textAlign: 'center',
+		margin: '2rem, 0, 2rem, 0'
 	}
 })
 
@@ -155,6 +159,8 @@ class TopTracks extends PureComponent {
 							</Grid>
 						</Slide>
 					))}
+				</Grid>
+				<Grid className={classes.recommendations}>
 					<Button
 						classes={{ root: classes.button }}
 						variant="extendedFab"

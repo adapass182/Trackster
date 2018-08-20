@@ -49,6 +49,10 @@ const styles = () => ({
 		},
 		color: 'white',
 		fontWeight: 'bold'
+	},
+	recommendations: {
+		textAlign: 'center',
+		margin: '2rem, 0, 2rem, 0'
 	}
 })
 
@@ -159,11 +163,12 @@ class TopArtists extends PureComponent {
 							</Grid>
 						</Slide>
 					))}
+				</Grid>
+				<Grid className={classes.recommendations}>
 					<Button
 						classes={{ root: classes.button }}
 						variant="extendedFab"
 						className={classes.button}
-						type="submit"
 						onClick={this.getNew}
 					>
 						Get recommendations
