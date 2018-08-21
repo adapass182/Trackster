@@ -110,7 +110,7 @@ class TopTracks extends PureComponent {
 			})
 		} else {
 			this.props.startLoading()
-			this.props.getTrackRecommendations('pop')
+			this.props.getTrackRecommendations(this.props.selectedTracks)
 		}
 	}
 
