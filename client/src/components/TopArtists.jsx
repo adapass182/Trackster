@@ -2,10 +2,11 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import Message from './Message'
+import Message from './utilities/Message'
 
-import { getArtistRecommendations, getTopArtists } from '../actions/spotify_a'
+import { startLoading } from '../actions/loading_a'
 import { addArtist, remArtist } from '../actions/selector_a'
+import { getArtistRecommendations, getTopArtists } from '../actions/spotify_a'
 
 import Star from '@material-ui/icons/Star'
 import StarBorder from '@material-ui/icons/StarBorder'
@@ -49,6 +50,10 @@ const styles = () => ({
 		},
 		color: 'white',
 		fontWeight: 'bold'
+	},
+	recommendations: {
+		textAlign: 'center',
+		margin: '2rem, 0, 2rem, 0'
 	}
 })
 
@@ -113,6 +118,7 @@ class TopArtists extends PureComponent {
 					'Click the star icon to select up to 5 artists and get recommendations'
 			})
 		} else {
+			this.props.startLoading()
 			this.props.getArtistRecommendations(this.props.selectedArtists)
 		}
 	}
@@ -159,11 +165,12 @@ class TopArtists extends PureComponent {
 							</Grid>
 						</Slide>
 					))}
+				</Grid>
+				<Grid className={classes.recommendations}>
 					<Button
 						classes={{ root: classes.button }}
 						variant="extendedFab"
 						className={classes.button}
-						type="submit"
 						onClick={this.getNew}
 					>
 						Get recommendations
@@ -186,6 +193,7 @@ TopArtists.propTypes = {
 	getTopArtists: PropTypes.func.isRequired,
 	remArtist: PropTypes.func.isRequired,
 	selectedArtists: PropTypes.array.isRequired,
+	startLoading: PropTypes.func.isRequired,
 	topArtists: PropTypes.object.isRequired
 }
 
@@ -198,5 +206,11 @@ const mapStateToProps = state => {
 
 export default connect(
 	mapStateToProps,
-	{ addArtist, getArtistRecommendations, getTopArtists, remArtist }
+	{
+		addArtist,
+		getArtistRecommendations,
+		getTopArtists,
+		remArtist,
+		startLoading
+	}
 )(withStyles(styles)(TopArtists))

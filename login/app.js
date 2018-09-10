@@ -13,11 +13,11 @@ var cors = require('cors')
 var querystring = require('querystring')
 var cookieParser = require('cookie-parser')
 
-var myCodes = require('./keys')
+// var myCodes = require('./keys')
 
-var client_id = myCodes.a_id // Your client id
-var client_secret = myCodes.a_secret // Your secret
-var redirect_uri = myCodes.a_uri // Your redirect uri
+var client_id = "fcd11d1799534820990f230dd2fcbbe1" // Your client id
+var client_secret = "19866e6a74e545038fb20be252211495" // Your secret
+var redirect_uri = "http://localhost:8888/callback" // Your redirect uri
 
 /**
  * Generates a random string containing numbers and letters

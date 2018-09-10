@@ -1,13 +1,13 @@
 import { GET_TOP_ARTISTS } from '../actions/spotify_a'
 
-let y = [
+let initialState_Artists = [
 	{
 		name: null,
 		images: [{ url: '' }]
 	}
 ]
 
-export default (state = y, { type, payload }) => {
+export default (state = initialState_Artists, { type, payload }) => {
 	switch (type) {
 	case GET_TOP_ARTISTS:
 		return payload

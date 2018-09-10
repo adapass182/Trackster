@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+
 import {
 	Button,
 	GridListTile,
@@ -11,6 +12,9 @@ import {
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
 import SwipeableViews from 'react-swipeable-views'
+
+import Loading from './utilities/Loading'
+import Error from './utilities/Error'
 
 const styles = () => ({
 	root: {
@@ -67,6 +71,11 @@ class Recommendations extends Component {
 
 	// Sets active step back to start when new recommendations load
 	componentDidUpdate(prevProps) {
+		window.scrollTo({
+			left: 0,
+			top: document.body.scrollHeight,
+			behavior: 'smooth'
+		})
 		if (prevProps.recommendations !== this.props.recommendations) {
 			this.setState({ activeStep: 0 })
 		}
@@ -90,94 +99,103 @@ class Recommendations extends Component {
 	}
 
 	render() {
-		const { classes, recommendations, theme } = this.props
+		const { classes, loading, recommendations, theme } = this.props
 		const { activeStep } = this.state
 
-		return (
-			<div className={classes.root}>
-				<SwipeableViews
-					axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-					index={this.state.activeStep}
-					onChangeIndex={this.handleStepChange}
-					enableMouseEvents
-				>
-					{recommendations.tracks.map(track => (
-						<GridListTile key={track.id} className={classes.img} cols={1}>
-							<a
-								href={track.external_urls.spotify}
-								target="_blank"
-								rel="noopener noreferrer external"
-							>
-								<img
-									src={track.album.images[1].url}
-									alt={track.name}
-									className={classes.img}
+		if (loading === false && recommendations === null) {
+			return null
+		} else if (loading === true) {
+			return <Loading />
+		} else if (recommendations.error) {
+			return <Error message={recommendations.message} />
+		} else {
+			return (
+				<div className={classes.root}>
+					<SwipeableViews
+						axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+						index={this.state.activeStep}
+						onChangeIndex={this.handleStepChange}
+						enableMouseEvents
+					>
+						{recommendations.tracks.map(track => (
+							<GridListTile key={track.id} className={classes.img} cols={1}>
+								<a
+									href={track.external_urls.spotify}
+									target="_blank"
+									rel="noopener noreferrer external"
+								>
+									<img
+										src={track.album.images[1].url}
+										alt={track.name}
+										className={classes.img}
+									/>
+								</a>
+								<GridListTileBar
+									title={track.name}
+									subtitle={track.artists[0].name}
 								/>
-							</a>
-							<GridListTileBar
-								title={track.name}
-								subtitle={track.artists[0].name}
-							/>
-						</GridListTile>
-					))}
-				</SwipeableViews>
-				<MobileStepper
-					variant="dots"
-					steps={recommendations.tracks.length}
-					position="static"
-					activeStep={activeStep}
-					className={classes.mobileStepper}
-					classes={{
-						dot: classes.dot,
-						dotActive: classes.dotActive
-					}}
-					nextButton={
-						<Button
-							classes={{ root: classes.button }}
-							style={{ marginLeft: '0.5rem' }}
-							size="small"
-							onClick={this.handleNext}
-							disabled={activeStep === recommendations.tracks.length - 1}
-						>
-							Next
-							{theme.direction === 'rtl' ? (
-								<KeyboardArrowLeft />
-							) : (
-								<KeyboardArrowRight />
-							)}
-						</Button>
-					}
-					backButton={
-						<Button
-							classes={{ root: classes.button }}
-							style={{ marginRight: '0.5rem' }}
-							size="small"
-							onClick={this.handleBack}
-							disabled={activeStep === 0}
-						>
-							{theme.direction === 'rtl' ? (
-								<KeyboardArrowRight />
-							) : (
-								<KeyboardArrowLeft />
-							)}
-							Back
-						</Button>
-					}
-				/>
-			</div>
-		)
+							</GridListTile>
+						))}
+					</SwipeableViews>
+					<MobileStepper
+						variant="dots"
+						steps={recommendations.tracks.length}
+						position="static"
+						activeStep={activeStep}
+						className={classes.mobileStepper}
+						classes={{
+							dot: classes.dot,
+							dotActive: classes.dotActive
+						}}
+						nextButton={
+							<Button
+								classes={{ root: classes.button }}
+								style={{ marginLeft: '0.5rem' }}
+								size="small"
+								onClick={this.handleNext}
+								disabled={activeStep === recommendations.tracks.length - 1}
+							>
+								Next
+								{theme.direction === 'rtl' ? (
+									<KeyboardArrowLeft />
+								) : (
+									<KeyboardArrowRight />
+								)}
+							</Button>
+						}
+						backButton={
+							<Button
+								classes={{ root: classes.button }}
+								style={{ marginRight: '0.5rem' }}
+								size="small"
+								onClick={this.handleBack}
+								disabled={activeStep === 0}
+							>
+								{theme.direction === 'rtl' ? (
+									<KeyboardArrowRight />
+								) : (
+									<KeyboardArrowLeft />
+								)}
+								Back
+							</Button>
+						}
+					/>
+				</div>
+			)
+		}
 	}
 }
 
 Recommendations.propTypes = {
 	classes: PropTypes.object.isRequired,
+	loading: PropTypes.bool.isRequired,
 	recommendations: PropTypes.object.isRequired,
-	theme: PropTypes.object.isRequired,
-	windowBottom: PropTypes.object.isRequired
+	theme: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => {
 	return {
+		loading: state.loading,
 		recommendations: state.recommendations
 	}
 }

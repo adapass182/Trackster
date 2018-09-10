@@ -2,10 +2,11 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import Message from './Message'
+import Message from './utilities/Message'
 
-import { getTrackRecommendations, getTopTracks } from '../actions/spotify_a'
+import { startLoading } from '../actions/loading_a'
 import { addTrack, remTrack } from '../actions/selector_a'
+import { getTrackRecommendations, getTopTracks } from '../actions/spotify_a'
 
 import Star from '@material-ui/icons/Star'
 import StarBorder from '@material-ui/icons/StarBorder'
@@ -49,6 +50,10 @@ const styles = () => ({
 		},
 		color: 'white',
 		fontWeight: 'bold'
+	},
+	recommendations: {
+		textAlign: 'center',
+		margin: '2rem, 0, 2rem, 0'
 	}
 })
 
@@ -108,6 +113,7 @@ class TopTracks extends PureComponent {
 					'Click the star icon to select up to 5 tracks and get recommendations'
 			})
 		} else {
+			this.props.startLoading()
 			this.props.getTrackRecommendations(this.props.selectedTracks)
 		}
 	}
@@ -118,7 +124,7 @@ class TopTracks extends PureComponent {
 
 		return (
 			<div className={classes.root}>
-				<Grid container spacing={24} className={classes.main}>
+				<Grid container direction="row" spacing={24} className={classes.main}>
 					{topTracks.map(track => (
 						<Slide
 							direction="right"
@@ -155,6 +161,8 @@ class TopTracks extends PureComponent {
 							</Grid>
 						</Slide>
 					))}
+				</Grid>
+				<Grid className={classes.recommendations}>
 					<Button
 						classes={{ root: classes.button }}
 						variant="extendedFab"
@@ -181,6 +189,7 @@ TopTracks.propTypes = {
 	getTopTracks: PropTypes.func.isRequired,
 	remTrack: PropTypes.func.isRequired,
 	selectedTracks: PropTypes.array.isRequired,
+	startLoading: PropTypes.func.isRequired,
 	topTracks: PropTypes.array.isRequired
 }
 
@@ -193,5 +202,5 @@ const mapStateToProps = state => {
 
 export default connect(
 	mapStateToProps,
-	{ addTrack, getTrackRecommendations, getTopTracks, remTrack }
+	{ addTrack, getTrackRecommendations, getTopTracks, remTrack, startLoading }
 )(withStyles(styles)(TopTracks))
