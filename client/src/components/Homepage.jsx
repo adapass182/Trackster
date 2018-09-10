@@ -56,7 +56,6 @@ class Homepage extends Component {
 	}
 
 	componentDidMount() {
-		window.scrollTo(0, 0)
 		this.props.getNowPlaying()
 		this.props.getTopArtists()
 		this.props.getTopTracks()
@@ -80,6 +79,10 @@ class Homepage extends Component {
 		this.setState(prevState => ({
 			switchView: !prevState.switchView
 		}))
+		window.scrollTo({
+			top: 510,
+			behavior: 'smooth'
+		})
 	}
 
 	// Switches between TopArtists and TopTracks components
